@@ -1,0 +1,74 @@
+set scrolloff=5
+set incsearch
+set relativenumber
+set number
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+" NerdTree
+Plug 'preservim/nerdtree'
+set NERDTree
+
+let mapleader = " "
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+
+"------------------
+"-- Emulate my Nvim mappings
+"------------------
+
+" Telescope-like"
+map  <leader>gi <Action>(GotoImplementation)
+map  <leader>gd <Action>(GotoDeclaration)
+map  <leader>gr <Action>(FindUsages)
+map  <leader>sf <Action>(GotoFile)
+map  <leader>sg <Action>(FindInPath)
+
+" Harpoon-like"
+map  <leader>a <Action>(ToggleBookmark)
+map  <leader>h <Action>(ShowBookmarks)
+
+" Some other stuff"
+map  ]d <Action>(GotoNextError)
+map  [d <Action>(GotoPreviousError)
+
+map  <leader>sd <Action>(QuickActions)
+map <leader>rn <Action>(RenameElement)
+map <leader>ca <Action>(ShowIntentionActions)
+
+map <leader>b <Action>(ToggleLineBreakpoint)
+
+"------------------
+"-- Unique for Idea
+"------------------
+map <leader>dr <Action>(Debug)
+map  <leader>ch <Action>(CallHierarchy)
+map <leader>r <Action>(ReformatCode)
+"-- Buffers stuff
+map  <leader>b1 :buff 1<CR>
+map  <leader>b2 :buff 2<CR>
+map  <leader>b3 :buff 3<CR>
+map  <leader>b4 :buff 4<CR>
+map  <leader>b5 :buff 5<CR>
+map  <leader>bn :bn<CR>
+map  <leader>bp :bp<CR>
+map  <leader>ls :ls<cr>
+
+"-----------------------------
+"--General Convenient mappings
+"-----------------------------
+
+"-- Drag and drop selection with J and K
+vmap K :m '<-2<CR>gv=gv
+vmap J :m '>+1<CR>gv=gv
+
+"-- Quickly insert an empty new line without entering insert mode
+nmap <leader>o o<Esc>
+nmap <leader>O O<Esc>
+
+"-- Keep the cursor in the middle of the screen during half page scrolling
+nmap <C-d> <C-d>zz
+nmap <C-u> <C-u>zz
