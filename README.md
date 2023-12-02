@@ -11,18 +11,22 @@ Below are instructions for installation from scratch on a brand new machine.
 2.  oh-my-zsh
 ```sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"```
 
-3. Install git and clone the repository
+3. Install git
+```brew install git```
 
+4. Install tpm
+```git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm```
+
+5. Clone the repo
 ```
-brew install git
 git clone git@github.com:ekropotin/dotfiles.git
 cd dotfiles
 ```
 
-4. Install software from Brewfile
+6. Install software from Brewfile
 ```brew bundle```
 
-5. Install configs
+7. Install configs
 ```
 chmod +x link.sh && ./link.sh
 ```
