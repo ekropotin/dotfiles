@@ -78,8 +78,10 @@ plugins=(
     python
     gradle
     tmux
+    docker
+    brew
+    rust
 )
-ZSH_TMUX_AUTOSTART=true
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -127,7 +129,7 @@ fi
 
 #GIT
 alias gci="git commit -a -m"
-# No arguments: `git status`
-# With arguments: acts like `git`
+alias gbc="git fetch && git checkout origin/$(git_main_branch) -b "
+alias gpb="git push origin $(current_branch)"
 
 [[ -s "$HOME/.zshrc-local" ]] && source "$HOME/.zshrc-local"

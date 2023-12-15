@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 
+brew "colima"
 brew "docker"
 brew "fzf"
 brew "htop"
@@ -10,6 +11,8 @@ brew "tmux"
 brew "node"
 tap "sdkman/tap"
 brew "sdkman-cli"
+# This package needed to support copying from tmux to system clipboard
+brew "reattach-to-user-namespace"
 #K8S stuff
 tap "argoproj/tap"
 brew "kubectl-argo-rollouts"
