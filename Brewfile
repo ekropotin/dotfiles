@@ -9,8 +9,11 @@ brew "ripgrep"
 brew "skaffold"
 brew "tmux"
 brew "node"
+brew "lazygit"
 tap "sdkman/tap"
 brew "sdkman-cli"
+brew "poetry"
+brew "just"
 # This package needed to support copying from tmux to system clipboard
 brew "reattach-to-user-namespace"
 #K8S stuff
@@ -28,4 +31,3 @@ cask "google-chrome"
 cask "iterm2"
 cask "intellij-idea"
 # vim: set filetype=ruby :
-

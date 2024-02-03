@@ -128,8 +128,8 @@ if [ "$ITERM_PROFILE" = "k8s" ]; then
 fi
 
 #GIT
-alias gci="git commit -a -m"
-alias gbc="git fetch && git checkout origin/$(git_main_branch) -b "
-alias gpb="git push origin $(current_branch)"
+alias gci='git commit -a -m'
+alias gbc='git fetch && git checkout origin/$(git_main_branch) -b '
+alias gbp='git push origin $(current_branch)'
 
 [[ -s "$HOME/.zshrc-local" ]] && source "$HOME/.zshrc-local"

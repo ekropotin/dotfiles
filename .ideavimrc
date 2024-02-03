@@ -32,30 +32,32 @@ map  <leader>a <Action>(ToggleBookmark)
 map  <leader>h <Action>(ShowBookmarks)
 
 " Some other stuff"
-map  ]d <Action>(GotoNextError)
-map  [d <Action>(GotoPreviousError)
+map ]d <Action>(GotoNextError)
+map [d <Action>(GotoPreviousError)
 
-map  <leader>sd <Action>(QuickActions)
+map <leader>sd <Action>(QuickJavaDoc)
 map <leader>rn <Action>(RenameElement)
 map <leader>ca <Action>(ShowIntentionActions)
 
 map <leader>b <Action>(ToggleLineBreakpoint)
 
+map <leader>e <Action>(ShowErrorDescription)
 "------------------
 "-- Unique for Idea
 "------------------
 map <leader>dr <Action>(Debug)
-map  <leader>ch <Action>(CallHierarchy)
+map <leader>ch <Action>(CallHierarchy)
 map <leader>r <Action>(ReformatCode)
+map <leader>fu <Action>(FindUsages)
 "-- Buffers stuff
-map  <leader>b1 :buff 1<CR>
-map  <leader>b2 :buff 2<CR>
-map  <leader>b3 :buff 3<CR>
-map  <leader>b4 :buff 4<CR>
-map  <leader>b5 :buff 5<CR>
-map  <leader>bn :bn<CR>
-map  <leader>bp :bp<CR>
-map  <leader>ls :ls<cr>
+map <leader>b1 :buff 1<CR>
+map <leader>b2 :buff 2<CR>
+map <leader>b3 :buff 3<CR>
+map <leader>b4 :buff 4<CR>
+map <leader>b5 :buff 5<CR>
+map <leader>bn :bn<CR>
+map <leader>bp :bp<CR>
+map <leader>ls :ls<cr>
 
 "-----------------------------
 "--General Convenient mappings
@@ -72,3 +74,15 @@ nmap <leader>O O<Esc>
 "-- Keep the cursor in the middle of the screen during half page scrolling
 nmap <C-d> <C-d>zz
 nmap <C-u> <C-u>zz
+
+"-- Navigate between windows with Ctrl + hjkl
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+"-- Disable arrows in normal mode
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
