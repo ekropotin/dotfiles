@@ -76,6 +76,7 @@ plugins=(
     fzf
     kube-ps1
     python
+    poetry
     gradle
     tmux
     docker

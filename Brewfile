@@ -12,7 +12,11 @@ brew "node"
 brew "lazygit"
 tap "sdkman/tap"
 brew "sdkman-cli"
+
+# Python stuff
+brew "python3"
 brew "poetry"
+
 brew "just"
 # This package needed to support copying from tmux to system clipboard
 brew "reattach-to-user-namespace"
@@ -23,7 +27,7 @@ brew "kubectl"
 brew "kubectx"
 brew "kube-ps1"
 brew "k9s"
-#Cask "apps
+#Cask apps
 cask "google-cloud-sdk"
 cask "insomnia"
 cask "alfred"

@@ -26,6 +26,7 @@ map  <leader>gd <Action>(GotoDeclaration)
 map  <leader>gr <Action>(FindUsages)
 map  <leader>sf <Action>(GotoFile)
 map  <leader>sg <Action>(FindInPath)
+map  <leader>sb <Action>(RecentFiles)
 
 " Harpoon-like"
 map  <leader>a <Action>(ToggleBookmark)
@@ -35,7 +36,7 @@ map  <leader>h <Action>(ShowBookmarks)
 map ]d <Action>(GotoNextError)
 map [d <Action>(GotoPreviousError)
 
-map <leader>sd <Action>(QuickJavaDoc)
+map <leader>K <Action>(QuickJavaDoc)
 map <leader>rn <Action>(RenameElement)
 map <leader>ca <Action>(ShowIntentionActions)
 
