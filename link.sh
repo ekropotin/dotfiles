@@ -7,14 +7,14 @@ current_dir=$(pwd)
 backup_and_replace() {
     local source="$1"
     local target="$2"
-    
+
     # Check if the target file already exists in the home directory
     if [ -e "$target" ]; then
         # Backup existing file by adding a ".bak" extension
         mv "$target" "$target.bak"
         echo "Backed up existing file: $target to $target.bak"
     fi
-    
+
     # Create a symbolic link in the home folder
     ln -s "$source" "$target"
     echo "Created a symbolic link for $(basename "$source") in $HOME"
@@ -29,4 +29,8 @@ for file in $(find . -maxdepth 1 -type f -name ".*" ! -name "." ! -name ".."); d
     backup_and_replace "$current_dir/$filename" "$HOME/$filename"
 done
 
+CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
+NVIM_CONFIG=$CONFIG_HOME/nvim
+
+backup_and_replace "$PWD/nvim" "$NVIM_CONFIG"
 echo "Dotfiles linking complete."
