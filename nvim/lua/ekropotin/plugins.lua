@@ -120,6 +120,9 @@ require('lazy').setup({
         }
     },
     {
-        dir = "/Users/ekropotin/sources/github/obsidian.nvim"
+        "epwalsh/obsidian.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
     }
 }, {})
