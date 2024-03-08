@@ -26,7 +26,9 @@ require('lazy').setup({
                         "pyright",
                         "rust-analyzer",
                         "codellbd",
-                        "cpptools"
+                        "cpptools",
+                        "marksman",
+                        "markdownlint"
                     }
                 }
             },

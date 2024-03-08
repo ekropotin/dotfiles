@@ -1,6 +1,7 @@
 require("conform").setup({
     formatters_by_ft = {
         python = { "ruff_fix", "ruff_format", "black" },
+        markdown = { "markdownlint" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
     },
     format_on_save = {
