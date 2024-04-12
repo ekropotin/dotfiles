@@ -35,7 +35,8 @@ NVIM_CONFIG=$CONFIG_HOME/nvim
 backup_and_replace "$PWD/nvim" "$NVIM_CONFIG"
 
 #Link tools
-echo "linking files to /urs/local/bin"
-sudo ln -s $PWD/tools/tms /urs/local/bin
+echo "linking files to /usr/local/bin"
+sudo ln -s $PWD/tools/tms /usr/local/bin
+sudo ln -s $PWD/tools/cht /usr/local/bin
 
 echo "Dotfiles linking complete."
