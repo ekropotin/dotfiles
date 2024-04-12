@@ -6,7 +6,7 @@ end
 local note_id_func = function(title)
     -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
     -- In this case a note with the title 'My new note' will be given an ID that looks
-    -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+    -- like 'my-new-note-1657296016', and therefore the file name 'my-new-note-1657296016.md'
     local prefix = ""
     if title ~= nil then
         -- If title is given, transform it into valid file name.
@@ -31,17 +31,55 @@ require('obsidian').setup({
         enable = false
     },
     daily_notes = {
-        folder = "dailies"
+        folder = "dailies",
+        template = "daily.md"
     },
     templates = {
         subdir = "templates"
     },
-    note_id_func = note_id_func
+    note_id_func = note_id_func,
+    disable_frontmatter = true,
+    attachments = {
+        img_folder = "files",
+        confirm_img_paste = false
+    }
 });
 
-vim.keymap.set("n", "<leader>nn", vim.cmd.ObsidianNew, { desc = '[n]ote [n]ew' })
+local function createNoteWithDefaultTemplate()
+    local TEMPLATE_FILENAME = "fleeting.md"
+    local obsidian = require("obsidian").get_client()
+    local utils = require("obsidian.util")
+
+    -- prevent Obsidian.nvim from injecting it's own frontmatter table
+    obsidian.opts.disable_frontmatter = true
+
+    -- prompt for note title
+    -- @see: borrowed from obsidian.command.new
+    local note
+    local title = utils.input("Enter title or path (optional): ")
+    if not title then
+        return
+    elseif title == "" then
+        title = nil
+    end
+
+    note = obsidian:create_note({ title = title, no_write = true })
+
+    if not note then
+        return
+    end
+    -- open new note in a buffer
+    obsidian:open_note(note, { sync = true })
+    -- NOTE: make sure the template folder is configured in Obsidian.nvim opts
+    obsidian:write_note_to_buffer(note, { template = TEMPLATE_FILENAME })
+    -- hack: delete empty lines before frontmatter; template seems to be injected at line 2
+    vim.api.nvim_buf_set_lines(0, 0, 1, false, {})
+end
+
+vim.keymap.set("n", "<leader>nn", createNoteWithDefaultTemplate, { desc = '[n]ew [n]ote' })
 vim.keymap.set("n", "<leader>snf", vim.cmd.ObsidianQuickSwitch, { desc = '[s]earch [n]otes [f]iles' })
 vim.keymap.set("n", "<leader>sng", vim.cmd.ObsidianSearch, { desc = '[s]earch [n]otes [g]rep' })
 vim.keymap.set("n", "<leader>snt", vim.cmd.ObsidianTags, { desc = '[s]earch [n]otes [t]ags' })
 vim.keymap.set("n", "<leader>nbl", vim.cmd.ObsidianBacklinks, { desc = '[n]ote [b]ack [l]inks' })
 vim.keymap.set("n", "<leader>nl", vim.cmd.ObsidianLinks, { desc = '[n]ote [l]inks' })
+vim.keymap.set("n", "<leader>nt", vim.cmd.ObsidianTemplate, { desc = '[n]ote [t]emplate' })

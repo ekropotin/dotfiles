@@ -12,6 +12,7 @@ brew "node"
 brew "lazygit"
 tap "sdkman/tap"
 brew "sdkman-cli"
+brew "pngpaste"
 
 # Python stuff
 brew "python3"

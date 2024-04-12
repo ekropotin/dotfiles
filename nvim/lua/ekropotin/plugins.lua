@@ -28,7 +28,8 @@ require('lazy').setup({
                         "codellbd",
                         "cpptools",
                         "marksman",
-                        "markdownlint"
+                        "markdownlint",
+                        "taplo"
                     }
                 }
             },
@@ -98,7 +99,8 @@ require('lazy').setup({
     {
         'rcarriga/nvim-dap-ui',
         dependencies = {
-            'mfussenegger/nvim-dap'
+            'mfussenegger/nvim-dap',
+            "nvim-neotest/nvim-nio"
         }
     },
     {
