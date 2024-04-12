@@ -33,4 +33,9 @@ CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 NVIM_CONFIG=$CONFIG_HOME/nvim
 
 backup_and_replace "$PWD/nvim" "$NVIM_CONFIG"
+
+#Link tools
+echo "linking files to /urs/local/bin"
+sudo ln -s $PWD/tools/tms /urs/local/bin
+
 echo "Dotfiles linking complete."

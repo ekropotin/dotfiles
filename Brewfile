@@ -13,6 +13,8 @@ brew "lazygit"
 tap "sdkman/tap"
 brew "sdkman-cli"
 brew "pngpaste"
+brew "tmuxinator"
+brew "tldr"
 
 # Python stuff
 brew "python3"
