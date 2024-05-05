@@ -128,5 +128,8 @@ require('lazy').setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
+    },
+    {
+        "github/copilot.vim"
     }
 }, {})

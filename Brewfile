@@ -7,20 +7,27 @@ brew "htop"
 brew "neovim"
 brew "ripgrep"
 brew "skaffold"
-brew "tmux"
 brew "node"
 brew "lazygit"
 tap "sdkman/tap"
 brew "sdkman-cli"
 brew "pngpaste"
-brew "tmuxinator"
 brew "tldr"
+brew "bat"
+brew "wget"
+brew "zoxide"
+brew "eza"
+brew "just"
+
+# Tmux
+brew "tmux"
+brew "tpm"
+brew "tmuxinator"
 
 # Python stuff
 brew "python3"
 brew "poetry"
 
-brew "just"
 # This package needed to support copying from tmux to system clipboard
 brew "reattach-to-user-namespace"
 #K8S stuff
@@ -35,6 +42,14 @@ cask "google-cloud-sdk"
 cask "insomnia"
 cask "alfred"
 cask "google-chrome"
-cask "iterm2"
 cask "intellij-idea"
+cask "kitty"
+
+# Fonts
+cask "homebrew/cask-fonts"
+brew "font-meslo-lg-nerd-font"
+
+# Shell customizations
+brew "zsh-syntax-highlighting"
+brew "powerlevel10k"
 # vim: set filetype=ruby :

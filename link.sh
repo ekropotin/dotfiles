@@ -33,6 +33,7 @@ CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 NVIM_CONFIG=$CONFIG_HOME/nvim
 
 backup_and_replace "$PWD/nvim" "$NVIM_CONFIG"
+backup_and_replace "$PWD/bat" "$CONFIG_HOME/bat"
 
 #Link tools
 echo "linking files to /usr/local/bin"

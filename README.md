@@ -18,22 +18,18 @@ Below are instructions for installation from scratch on a brand new machine.
 
 ```brew install git```
 
-4. Install tpm
-
-```git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm```
-
-5. Clone the repo
+4. Clone the repo
 
 ```
 git clone git@github.com:ekropotin/dotfiles.git
 cd dotfiles
 ```
 
-6. Install software from Brewfile
+5. Install software from Brewfile
 
 ```brew bundle```
 
-7. Install configs
+6. Install configs
 
 ```
 chmod +x link.sh && ./link.sh
