@@ -34,6 +34,7 @@ NVIM_CONFIG=$CONFIG_HOME/nvim
 
 backup_and_replace "$PWD/nvim" "$NVIM_CONFIG"
 backup_and_replace "$PWD/bat" "$CONFIG_HOME/bat"
+backup_and_replace "$PWD/kitty" "$CONFIG_HOME/kitty"
 
 #Link tools
 echo "linking files to /usr/local/bin"
