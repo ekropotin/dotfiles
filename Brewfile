@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 
+# Essential thingies
 brew "colima"
 brew "docker"
 brew "fzf"
@@ -23,13 +24,19 @@ brew "just"
 brew "tmux"
 brew "tpm"
 brew "tmuxinator"
+# This package needed to support copying from tmux to system clipboard
+brew "reattach-to-user-namespace"
 
 # Python stuff
 brew "python3"
 brew "poetry"
 
-# This package needed to support copying from tmux to system clipboard
-brew "reattach-to-user-namespace"
+# Window management
+brew "yabai"
+brew "skhd"
+tap "FelixKratz/formulae"
+brew "borders"
+
 #K8S stuff
 tap "argoproj/tap"
 brew "kubectl-argo-rollouts"

@@ -29,12 +29,26 @@ for file in $(find . -maxdepth 1 -type f -name ".*" ! -name "." ! -name ".."); d
     backup_and_replace "$current_dir/$filename" "$HOME/$filename"
 done
 
-CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
-NVIM_CONFIG=$CONFIG_HOME/nvim
+#link .configs
+home_configs_root=${XDG_CONFIG_HOME:-"$HOME/.config"}
+repo_configs_root="$PWD/.config"
 
-backup_and_replace "$PWD/nvim" "$NVIM_CONFIG"
-backup_and_replace "$PWD/bat" "$CONFIG_HOME/bat"
-backup_and_replace "$PWD/kitty" "$CONFIG_HOME/kitty"
+for repo_config_dir in "$repo_configs_root"/*; do
+    if [ -d "$repo_config_dir" ]; then
+        dir_name=$(basename "$repo_config_dir")
+        original_dir="$home_configs_root/$dir_name"
+
+        # Backup existing directory in ~/.config if it exists
+        if [ -d "$original_dir" ]; then
+            echo "Backing up existing directory: $original_dir"
+            mv "$original_dir" "${original_dir}_backup"
+        fi
+
+        # Create the symbolic link in ~/.contig
+        echo "Creating symbolic link: $original_dir -> $repo_config_dir"
+        ln -s "$repo_config_dir" "$original_dir"
+    fi
+done
 
 #Link tools
 echo "linking files to /usr/local/bin"

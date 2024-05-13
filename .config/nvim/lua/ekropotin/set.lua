@@ -54,5 +54,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Show witespace characters
 vim.api.nvim_set_option('list', true)
 vim.api.nvim_set_option('listchars', 'tab:»·,space:·,trail:·,extends:→,precedes:←')
-vim.cmd("highlight EOLWhitespace ctermbg=LightRed guibg=LightRed")
 vim.cmd('match EOLWhitespace /\\s\\+$/')
+-- Uncomment the following line to highlight trailing whitespace
+-- vim.cmd("highlight EOLWhitespace ctermbg=LightRed guibg=LightRed")

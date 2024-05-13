@@ -53,6 +53,8 @@ require('lazy').setup({
             'hrsh7th/cmp-nvim-lsp',
             -- Adds a number of user-friendly snippets
             'rafamadriz/friendly-snippets',
+            -- Path completions
+            'hrsh7th/cmp-path'
         },
     },
     -- Useful plugin to show you pending keybinds.
@@ -131,5 +133,10 @@ require('lazy').setup({
     },
     {
         "github/copilot.vim"
+    },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        opts = {}
     }
 }, {})
