@@ -19,6 +19,7 @@ brew "wget"
 brew "zoxide"
 brew "eza"
 brew "just"
+brew "jq"
 
 # Tmux
 brew "tmux"

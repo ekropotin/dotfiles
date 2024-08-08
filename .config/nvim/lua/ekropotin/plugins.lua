@@ -138,5 +138,11 @@ require('lazy').setup({
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {}
+    },
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
     }
 }, {})
