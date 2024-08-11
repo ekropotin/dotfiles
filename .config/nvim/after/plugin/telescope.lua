@@ -47,6 +47,13 @@ telescope.setup {
             },
         },
     },
+    pickers = {
+        live_grep = {
+            additional_args = {
+                '--hidden', '--iglob', '!.git'
+            },
+        }
+    }
 }
 
 pcall(builtin.load_extension, 'fzf')

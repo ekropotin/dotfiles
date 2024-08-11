@@ -21,44 +21,46 @@ let mapleader = " "
 "------------------
 
 " Telescope-like"
-map  <leader>gi <Action>(GotoImplementation)
-map  <leader>gd <Action>(GotoDeclaration)
-map  <leader>gr <Action>(FindUsages)
-map  <leader>sf <Action>(GotoFile)
-map  <leader>sg <Action>(FindInPath)
-map  <leader>sb <Action>(RecentFiles)
+nmap  <leader>gi <Action>(GotoImplementation)
+nmap  <leader>gd <Action>(GotoDeclaration)
+nmap  <leader>gr <Action>(FindUsages)
+nmap  <leader>sf <Action>(GotoFile)
+nmap  <leader>sg <Action>(FindInPath)
+nmap  <leader>sb <Action>(RecentFiles)
 
 " Harpoon-like"
-map  <leader>a <Action>(ToggleBookmark)
-map  <leader>h <Action>(ShowBookmarks)
+nmap  <leader>a <Action>(ToggleBookmark)
+nmap  <leader>h <Action>(ShowBookmarks)
 
 " Some other stuff"
-map ]d <Action>(GotoNextError)
-map [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
 
-map <leader>K <Action>(QuickJavaDoc)
-map <leader>rn <Action>(RenameElement)
-map <leader>ca <Action>(ShowIntentionActions)
+nmap <leader>K <Action>(QuickJavaDoc)
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>ca <Action>(ShowIntentionActions)
 
-map <leader>b <Action>(ToggleLineBreakpoint)
+nmap <leader>b <Action>(ToggleLineBreakpoint)
 
-map <leader>e <Action>(ShowErrorDescription)
+nmap <leader>e <Action>(ShowErrorDescription)
 "------------------
 "-- Unique for Idea
 "------------------
-map <leader>dr <Action>(Debug)
-map <leader>ch <Action>(CallHierarchy)
-map <leader>r <Action>(ReformatCode)
-map <leader>fu <Action>(FindUsages)
+nmap <leader>dr <Action>(Debug)
+nmap <leader>ch <Action>(CallHierarchy)
+nmap <leader>fu <Action>(FindUsages)
+nmap <leader>g <Action>(Generate)
+nmap <leader>rf <Action>(RefactoringMenu)
+
 "-- Buffers stuff
-map <leader>b1 :buff 1<CR>
-map <leader>b2 :buff 2<CR>
-map <leader>b3 :buff 3<CR>
-map <leader>b4 :buff 4<CR>
-map <leader>b5 :buff 5<CR>
-map <leader>bn :bn<CR>
-map <leader>bp :bp<CR>
-map <leader>ls :ls<cr>
+nmap <leader>b1 :buff 1<CR>
+nmap <leader>b2 :buff 2<CR>
+nmap <leader>b3 :buff 3<CR>
+nmap <leader>b4 :buff 4<CR>
+nmap <leader>b5 :buff 5<CR>
+nmap <leader>bn :bn<CR>
+nmap <leader>bp :bp<CR>
+nmap <leader>ls :ls<cr>
 
 "-----------------------------
 "--General Convenient mappings
@@ -87,3 +89,8 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+nmap <leader>vf :NERDTreeToggle<CR>
+
+set ideajoin
+set idearefactormode=keep

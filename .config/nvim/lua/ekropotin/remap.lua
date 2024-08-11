@@ -3,7 +3,6 @@
 ---------------------
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>vf", vim.cmd.Ex)
 -- Quickly insert an empty new line without entering insert mode
 vim.keymap.set("n", "<leader>o", "o<Esc>",
     { desc = '[o]pen a new line below the current line without leaving the normal mode' })
