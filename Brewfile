@@ -35,8 +35,6 @@ brew "poetry"
 # Window management
 brew "yabai"
 brew "skhd"
-tap "FelixKratz/formulae"
-brew "borders"
 
 #K8S stuff
 tap "argoproj/tap"

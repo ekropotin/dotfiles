@@ -43,14 +43,16 @@ nmap <leader>ca <Action>(ShowIntentionActions)
 nmap <leader>b <Action>(ToggleLineBreakpoint)
 
 nmap <leader>e <Action>(ShowErrorDescription)
-"------------------
-"-- Unique for Idea
-"------------------
+nmap <leader>gs <Action>(ActivateCommitToolWindow)
 nmap <leader>dr <Action>(Debug)
+"------------------
+-- Unique for Idea
+"------------------
 nmap <leader>ch <Action>(CallHierarchy)
 nmap <leader>fu <Action>(FindUsages)
-nmap <leader>g <Action>(Generate)
+nmap <leader>gn <Action>(Generate)
 nmap <leader>rf <Action>(RefactoringMenu)
+nmap <leader>t <Action>(ActivateTerminalToolWindow)
 
 "-- Buffers stuff
 nmap <leader>b1 :buff 1<CR>
