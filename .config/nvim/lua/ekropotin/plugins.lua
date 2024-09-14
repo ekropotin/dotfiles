@@ -132,9 +132,6 @@ require('lazy').setup({
         },
     },
     {
-        "github/copilot.vim"
-    },
-    {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {}
@@ -144,5 +141,37 @@ require('lazy').setup({
         opts = {},
         -- Optional dependencies
         dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    },
+    {
+        "yetone/avante.nvim",
+        event = "VeryLazy",
+        lazy = false,
+        opts = {
+            provider = "copilot",
+        },
+        keys = {
+            { "<leader>aa", function() require("avante.api").ask() end,     desc = "avante: ask",    mode = { "n", "v" } },
+            { "<leader>ar", function() require("avante.api").refresh() end, desc = "avante: refresh" },
+            { "<leader>ae", function() require("avante.api").edit() end,    desc = "avante: edit",   mode = "v" },
+        },
+        dependencies = {
+            "stevearc/dressing.nvim",
+            "MunifTanjim/nui.nvim",
+            "zbirenbaum/copilot.lua",
+            {
+                "HakonHarnes/img-clip.nvim",
+                event = "VeryLazy",
+                opts = {
+                    -- recommended settings
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true,
+                        },
+                    },
+                },
+            },
+        },
     }
 }, {})
