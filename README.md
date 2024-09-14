@@ -35,6 +35,8 @@ cd dotfiles
 chmod +x link.sh && ./link.sh
 ```
 
+After starting tmux session, don't forget to install tpm plugins by pressing `ctrl + shift + I`
+
 This script will create symbolic links in your home folder to all dotfiles in the repository.
 
 If you are using iTerm 2/3 as a terminal emulator, you need to enable `Applications in terminal may access clipboard` in it's settings in order to copy the content from Tmux into the system clipboard.
