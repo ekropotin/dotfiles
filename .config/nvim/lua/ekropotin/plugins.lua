@@ -29,7 +29,10 @@ require('lazy').setup({
                         "cpptools",
                         "marksman",
                         "markdownlint",
-                        "taplo"
+                        "taplo",
+                        "emmet-language-server",
+                        "svelte-language-sever",
+                        "tailwindcss-language-server"
                     }
                 }
             },
@@ -147,7 +150,7 @@ require('lazy').setup({
         event = "VeryLazy",
         lazy = false,
         opts = {
-            provider = "copilot",
+            provider = "claude",
         },
         keys = {
             { "<leader>aa", function() require("avante.api").ask() end,     desc = "avante: ask",    mode = { "n", "v" } },
@@ -173,5 +176,9 @@ require('lazy').setup({
                 },
             },
         },
+    },
+    {
+        "luckasRanarison/tailwind-tools.nvim",
+        opts = {}
     }
 }, {})

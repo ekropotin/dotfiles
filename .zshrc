@@ -89,6 +89,7 @@ plugins=(
     docker
     brew
     rust
+    docker-compose
 )
 source $ZSH/oh-my-zsh.sh
 

@@ -57,3 +57,9 @@ vim.api.nvim_set_option('listchars', 'tab:»·,space:·,trail:·,extends:→,pre
 vim.cmd('match EOLWhitespace /\\s\\+$/')
 -- Uncomment the following line to highlight trailing whitespace
 -- vim.cmd("highlight EOLWhitespace ctermbg=LightRed guibg=LightRed")
+
+-- Use css grammar for postcss
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = "*.postcss",
+    command = "set filetype=css"
+})
