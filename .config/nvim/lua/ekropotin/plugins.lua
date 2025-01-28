@@ -32,7 +32,8 @@ require('lazy').setup({
                         "taplo",
                         "emmet-language-server",
                         "svelte-language-sever",
-                        "tailwindcss-language-server"
+                        "tailwindcss-language-server",
+                        "typescript-language-server"
                     }
                 }
             },
