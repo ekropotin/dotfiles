@@ -33,7 +33,8 @@ require('lazy').setup({
                         "emmet-language-server",
                         "svelte-language-sever",
                         "tailwindcss-language-server",
-                        "typescript-language-server"
+                        "typescript-language-server",
+                        "terraform-ls"
                     }
                 }
             },

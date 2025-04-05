@@ -90,7 +90,7 @@ plugins=(
     brew
     rust
     docker-compose
-    gcloud
+    terraform
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -192,6 +192,11 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# Init gcloud
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 # Init SDKMan
 export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
