@@ -76,9 +76,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local mason_lspconfig = require 'mason-lspconfig'
 
 local lspconfig = require('lspconfig')
-local mason_registry = require("mason-registry")
-local codelldb = mason_registry.get_package("codelldb")
-local extension_path = codelldb:get_install_path() .. "/extension/"
+local extension_path = vim.fn.exepath("codelldb") .. "/extension/"
 local codelldb_path = extension_path .. "adapter/codelldb"
 local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
 mason_lspconfig.setup_handlers {
