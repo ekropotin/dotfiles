@@ -75,61 +75,64 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
-local lspconfig = require('lspconfig')
 local extension_path = vim.fn.exepath("codelldb") .. "/extension/"
 local codelldb_path = extension_path .. "adapter/codelldb"
 local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-mason_lspconfig.setup_handlers {
-    function(server_name)
-        lspconfig[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-        }
+
+-- Default fallback
+for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+    vim.lsp.config(server_name, {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+end
+
+-- Custom LSP configs
+vim.lsp.config("pyright", {
+  before_init = function(_, config)
+    config.settings.python.pythonPath = get_python_path(config.root_dir)
+  end,
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = "basic",
+      },
+    },
+  },
+})
+
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" }
+      },
+    },
+  },
+})
+
+rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      on_attach(_, bufnr)
+      vim.keymap.set("n", "<Leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
+      vim.keymap.set("n", "<Leader>K", function()
+        rt.hover_actions.hover_actions()
+        vim.schedule(rt.hover_actions.hover_actions)
+      end, { buffer = bufnr })
     end,
-    ['pyright'] = function()
-        lspconfig.pyright.setup({
-            before_init = function(_, config)
-                config.settings.python.pythonPath = get_python_path(config.root_dir)
-            end,
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                python = {
-                    analysis = {
-                        useLibraryCodeForTypes = true,
-                        typeCheckingMode = "basic",
-                    },
-                },
-            },
-        })
-    end,
-    ["rust_analyzer"] = function()
-        local rt = require("rust-tools")
-        rt.setup({
-            server = {
-                capabilities = capabilities,
-                on_attach = function(_, bufnr)
-                    on_attach(_, bufnr)
-                    -- Override default LSP actions with rust-tools-powered capabilities
-                    vim.keymap.set("n", "<Leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
-                    vim.keymap.set("n", "<Leader>K", function()
-                        rt.hover_actions.hover_actions()
-                        vim.schedule(rt.hover_actions.hover_actions)
-                    end, { buffer = bufnr })
-                end,
-                settings = {
-                    -- to enable rust-analyzer settings visit:
-                    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-                    ["rust-analyzer"] = {
-                        checkOnSave = {
-                            command = "clippy"
-                        },
-                    }
-                }
-            },
-            dap = {
-                adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
-            }
-        })
-    end
-}
+    capabilities = capabilities,
+    settings = {
+      ["rust-analyzer"] = {
+        checkOnSave = { command = "clippy" },
+      },
+    },
+  },
+  dap = {
+    adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+  },
+})
