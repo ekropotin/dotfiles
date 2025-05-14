@@ -30,7 +30,7 @@ brew "reattach-to-user-namespace"
 
 # Python stuff
 brew "python3"
-brew "poetry"
+brew "uv"
 
 # Window management
 brew "yabai"

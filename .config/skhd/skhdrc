@@ -1,57 +1,57 @@
 # change window focus within space
-hyper - j : yabai -m window --focus south
-hyper - k : yabai -m window --focus north
-hyper - h : yabai -m window --focus west
-hyper - l : yabai -m window --focus east
-# 0x30 - Tab
-hyper - 0x30 : yabai -m window --focus recent
-# Hyper + ` - focus Kitty window
-hyper - 0x32 : sh -c 'window_id=$(yabai -m query --windows | jq -r --arg app "kitty" ".[] | select(.app == \$app) | .id" | head -n 1);yabai -m window --focus "$window_id"'
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+
+# alt + ` - focus Kitty window
+alt - 0x32 : sh -c 'window_id=$(yabai -m query --windows | jq -r --arg app "kitty" ".[] | select(.app == \$app) | .id" | head -n 1);yabai -m window --focus "$window_id"'
 
 # -- Modifying the Layout --
 
 # rotate layout clockwise
-hyper - r : yabai -m space --rotate 270
+alt - r : yabai -m space --rotate 270
 
 # flip along y-axis
-hyper - y : yabai -m space --mirror y-axis
+alt - y : yabai -m space --mirror y-axis
 
 # flip along x-axis
-hyper - x : yabai -m space --mirror x-axis
+alt - x : yabai -m space --mirror x-axis
 
 # toggle window float
-hyper - f : yabai -m window --toggle float --grid 10:10:1:1:8:8
+alt + shift - f : yabai -m window --toggle float --grid 10:10:1:1:8:8
 
 # -- Modifying Window Size --
 
 # maximize a window
-hyper - m : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
 
 # balance out tree of windows (resize to occupy same area)
-hyper - b : yabai -m space --balance
+alt - b : yabai -m space --balance
 
 # -- Moving Windows Around --
 
 # swap windows
-hyper - down : yabai -m window --swap south
-hyper - up : yabai -m window --swap north
-hyper - left : yabai -m window --swap west
-hyper - right : yabai -m window --swap east
-
-# warp window
-hyper - w : yabai -m window --warp recent
+alt - down : yabai -m window --swap south
+alt - up : yabai -m window --swap north
+alt - left : yabai -m window --swap west
+alt - right : yabai -m window --swap east
 
 # move window to display
-hyper - d : yabai -m window --display recent; yabai -m display --focus recent;
+alt - d : yabai -m window --display recent; yabai -m display --focus recent;
 
 # move window to prev and next space
-hyper - p : yabai -m window --space prev;
-hyper - n : yabai -m window --space next;
+alt - p : yabai -m window --space prev;
+alt - n : yabai -m window --space next;
 # move window to space #
-hyper - 1 : yabai -m window --space 1;
-hyper - 2 : yabai -m window --space 2;
-hyper - 3 : yabai -m window --space 3;
-hyper - 4 : yabai -m window --space 4;
-hyper - 5 : yabai -m window --space 5;
-hyper - 6 : yabai -m window --space 6;
-hyper - 7 : yabai -m window --space 7;
+alt - 1 : yabai -m window --space 1;
+alt - 2 : yabai -m window --space 2;
+alt - 3 : yabai -m window --space 3;
+alt - 4 : yabai -m window --space 4;
+alt - 5 : yabai -m window --space 5;
+alt - 6 : yabai -m window --space 6;
+alt - 7 : yabai -m window --space 7;
+
+# change layout type
+alt - e : yabai -m space --layout bsp
+alt - s : yabai -m space --layout stack
