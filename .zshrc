@@ -83,7 +83,6 @@ plugins=(
     fzf
     kube-ps1
     python
-    poetry
     gradle
     tmux
     docker
@@ -201,3 +200,5 @@ source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 # Init SDKMan
 export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
