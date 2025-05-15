@@ -34,7 +34,8 @@ require('lazy').setup({
                         "svelte-language-sever",
                         "tailwindcss-language-server",
                         "typescript-language-server",
-                        "terraform-ls"
+                        "terraform-ls",
+                        "stylua"
                     }
                 }
             },
@@ -150,7 +151,7 @@ require('lazy').setup({
     {
         "yetone/avante.nvim",
         event = "VeryLazy",
-        lazy = false,
+        build = "make",
         opts = {
             provider = "claude",
         },

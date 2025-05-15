@@ -4,6 +4,7 @@ require("conform").setup({
         markdown = { "markdownlint" },
         javascript = { "prettier" },
         typescript = { "prettier" },
+        lua = { "stylua" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
     },
     format_on_save = {
