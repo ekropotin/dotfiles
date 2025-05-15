@@ -20,30 +20,30 @@ local note_id_func = function(title)
     return prefix .. "_" .. (os.time())
 end
 
-require('obsidian').setup({
+require("obsidian").setup({
     workspaces = {
         {
             name = "vault",
-            path = obsidian_vault_path
-        }
+            path = obsidian_vault_path,
+        },
     },
     ui = {
-        enable = false
+        enable = false,
     },
     daily_notes = {
         folder = "dailies",
-        template = "daily.md"
+        template = "daily.md",
     },
     templates = {
-        subdir = "templates"
+        subdir = "templates",
     },
     note_id_func = note_id_func,
     disable_frontmatter = true,
     attachments = {
         img_folder = "files",
-        confirm_img_paste = false
-    }
-});
+        confirm_img_paste = false,
+    },
+})
 
 local function createNoteWithDefaultTemplate()
     local TEMPLATE_FILENAME = "fleeting.md"
@@ -76,10 +76,10 @@ local function createNoteWithDefaultTemplate()
     vim.api.nvim_buf_set_lines(0, 0, 1, false, {})
 end
 
-vim.keymap.set("n", "<leader>nn", createNoteWithDefaultTemplate, { desc = '[n]ew [n]ote' })
-vim.keymap.set("n", "<leader>snf", vim.cmd.ObsidianQuickSwitch, { desc = '[s]earch [n]otes [f]iles' })
-vim.keymap.set("n", "<leader>sng", vim.cmd.ObsidianSearch, { desc = '[s]earch [n]otes [g]rep' })
-vim.keymap.set("n", "<leader>snt", vim.cmd.ObsidianTags, { desc = '[s]earch [n]otes [t]ags' })
-vim.keymap.set("n", "<leader>nbl", vim.cmd.ObsidianBacklinks, { desc = '[n]ote [b]ack [l]inks' })
-vim.keymap.set("n", "<leader>nl", vim.cmd.ObsidianLinks, { desc = '[n]ote [l]inks' })
-vim.keymap.set("n", "<leader>nt", vim.cmd.ObsidianTemplate, { desc = '[n]ote [t]emplate' })
+vim.keymap.set("n", "<leader>nn", createNoteWithDefaultTemplate, { desc = "[n]ew [n]ote" })
+vim.keymap.set("n", "<leader>snf", vim.cmd.ObsidianQuickSwitch, { desc = "[s]earch [n]otes [f]iles" })
+vim.keymap.set("n", "<leader>sng", vim.cmd.ObsidianSearch, { desc = "[s]earch [n]otes [g]rep" })
+vim.keymap.set("n", "<leader>snt", vim.cmd.ObsidianTags, { desc = "[s]earch [n]otes [t]ags" })
+vim.keymap.set("n", "<leader>nbl", vim.cmd.ObsidianBacklinks, { desc = "[n]ote [b]ack [l]inks" })
+vim.keymap.set("n", "<leader>nl", vim.cmd.ObsidianLinks, { desc = "[n]ote [l]inks" })
+vim.keymap.set("n", "<leader>nt", vim.cmd.ObsidianTemplate, { desc = "[n]ote [t]emplate" })

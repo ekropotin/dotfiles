@@ -30,36 +30,36 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.wildmode = 'longest,list'
+vim.o.wildmode = "longest,list"
 
 -- Enable spellchecker
 vim.o.spell = true
 -- [[ Highlight on yank ]]
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
         vim.highlight.on_yank()
     end,
     group = highlight_group,
-    pattern = '*',
+    pattern = "*",
 })
 
 -- Show witespace characters
-vim.api.nvim_set_option('list', true)
-vim.api.nvim_set_option('listchars', 'tab:»·,space:·,trail:·,extends:→,precedes:←')
-vim.cmd('match EOLWhitespace /\\s\\+$/')
+vim.api.nvim_set_option("list", true)
+vim.api.nvim_set_option("listchars", "tab:»·,space:·,trail:·,extends:→,precedes:←")
+vim.cmd("match EOLWhitespace /\\s\\+$/")
 -- Uncomment the following line to highlight trailing whitespace
 -- vim.cmd("highlight EOLWhitespace ctermbg=LightRed guibg=LightRed")
 
 -- Use css grammar for postcss
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = "*.postcss",
-    command = "set filetype=css"
+    command = "set filetype=css",
 })

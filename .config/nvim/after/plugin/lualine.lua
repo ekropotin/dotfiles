@@ -1,17 +1,17 @@
-require('lualine').setup {
+require("lualine").setup({
     options = {
         icons_enabled = true,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = ''
+        theme = "onedark",
+        component_separators = "|",
+        section_separators = "",
     },
     sections = {
         lualine_c = {
             {
-                'filename',
+                "filename",
                 file_status = true,
-                path = 1
-            }
-        }
-    }
-}
+                path = 1,
+            },
+        },
+    },
+})

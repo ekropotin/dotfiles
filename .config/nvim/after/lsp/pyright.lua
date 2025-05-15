@@ -21,17 +21,17 @@ local function get_python_path(workspace)
 end
 
 return {
-  before_init = function(_, config)
-    config.settings.python.pythonPath = get_python_path(config.root_dir)
-  end,
-  on_attach = lsp.on_attach,
-  capabilities = lsp.capabilities,
-  settings = {
-    python = {
-      analysis = {
-        useLibraryCodeForTypes = true,
-        typeCheckingMode = "basic",
-      },
+    before_init = function(_, config)
+        config.settings.python.pythonPath = get_python_path(config.root_dir)
+    end,
+    on_attach = lsp.on_attach,
+    capabilities = lsp.capabilities,
+    settings = {
+        python = {
+            analysis = {
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = "basic",
+            },
+        },
     },
-  },
 }
