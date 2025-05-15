@@ -5,6 +5,7 @@ local mason_lspconfig = require("mason-lspconfig")
 require("mason").setup()
 -- Default fallback
 for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+    print(server_name)
     vim.lsp.config(server_name, {
         on_attach = lsp.on_attach,
         capabilities = lsp.capabilities,
@@ -12,15 +13,15 @@ for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
 end
 
 -- enable configs in "after/lsp"
-require("mason-lspconfig").setup {
+require("mason-lspconfig").setup({
     automatic_enable = {
         exclude = {
             -- will setup below, wrapping by rust-tools
-            "rust_analyzer"
-        }
-    }
-}
-require('neodev').setup()
+            "rust_analyzer",
+        },
+    },
+})
+require("neodev").setup()
 
 -- rust_analyzer setup
 local extension_path = vim.fn.exepath("codelldb") .. "/extension/"
@@ -31,8 +32,7 @@ rt.setup({
     server = {
         on_attach = function(_, bufnr)
             lsp.on_attach(_, bufnr)
-            vim.keymap.set("n", "<Leader>ca", rt.code_action_group.code_action_group,
-                { buffer = bufnr })
+            vim.keymap.set("n", "<Leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
             vim.keymap.set("n", "<Leader>K", function()
                 rt.hover_actions.hover_actions()
                 vim.schedule(rt.hover_actions.hover_actions)
@@ -46,6 +46,6 @@ rt.setup({
         },
     },
     dap = {
-        adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+        adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
     },
 })
