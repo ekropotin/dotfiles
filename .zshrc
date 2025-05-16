@@ -100,12 +100,7 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-#Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='nvim'
-fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -183,7 +178,17 @@ alias cd="z"
 # Local overrides
 [[ -s "$HOME/.zshrc-local" ]] && source "$HOME/.zshrc-local"
 
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Load zsh-syntax-highlighting
+if command -v brew &>/dev/null; then
+  # macOS with Homebrew
+  source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+elif [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  # Linux standard location
+  source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+elif [ -f "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  # Manual installation in home directory
+  source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -193,12 +198,30 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# Init gcloud
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+# Init gcloud - platform independent
+if command -v brew &>/dev/null; then
+  # macOS with Homebrew
+  source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+  source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+elif [ -f "/usr/share/google-cloud-sdk/path.zsh.inc" ]; then
+  # Linux standard location
+  source "/usr/share/google-cloud-sdk/path.zsh.inc"
+  source "/usr/share/google-cloud-sdk/completion.zsh.inc"
+elif [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then
+  # Manual installation in home directory
+  source "$HOME/google-cloud-sdk/path.zsh.inc"
+  source "$HOME/google-cloud-sdk/completion.zsh.inc"
+fi
 
 # Init SDKMan
-export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
-[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+if command -v brew &>/dev/null; then
+  # macOS with Homebrew
+  export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+elif [ -d "$HOME/.sdkman" ]; then
+  # Standard SDKMAN installation location
+  export SDKMAN_DIR="$HOME/.sdkman"
+  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+fi
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
