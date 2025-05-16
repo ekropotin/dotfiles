@@ -44,14 +44,11 @@ alt - d : yabai -m window --display recent; yabai -m display --focus recent;
 alt - p : yabai -m window --space prev;
 alt - n : yabai -m window --space next;
 # move window to space #
-alt - 1 : yabai -m window --space 1;
-alt - 2 : yabai -m window --space 2;
-alt - 3 : yabai -m window --space 3;
-alt - 4 : yabai -m window --space 4;
-alt - 5 : yabai -m window --space 5;
-alt - 6 : yabai -m window --space 6;
-alt - 7 : yabai -m window --space 7;
+alt - shift - 1 : yabai -m window --space 1;
+alt - shift - 2 : yabai -m window --space 2;
+alt - shift - 3 : yabai -m window --space 3;
+alt - shift - 4 : yabai -m window --space 4;
+alt  -shift - 5 : yabai -m window --space 5;
 
 # change layout type
-alt - e : yabai -m space --layout bsp
-alt - s : yabai -m space --layout stack
+alt - s : ~/.config/yabai/toggle-layout.sh
