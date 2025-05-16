@@ -29,7 +29,13 @@ cd dotfiles
 
 ```brew bundle```
 
-6. Install configs
+6. Install Tmux Plugin Manager
+
+```shell
+git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
+```
+
+7. Install configs
 
 ```
 chmod +x link.sh && ./link.sh

@@ -23,7 +23,6 @@ brew "jq"
 
 # Tmux
 brew "tmux"
-brew "tpm"
 brew "tmuxinator"
 # This package needed to support copying from tmux to system clipboard
 brew "reattach-to-user-namespace"
