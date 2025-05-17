@@ -14,6 +14,17 @@ end
 
 -- enable configs in "after/lsp"
 require("mason-lspconfig").setup({
+    ensure_installed = {
+        "ruff",
+        "pyright",
+        "marksman",
+        "taplo",
+        "emmet_ls",
+        "svelte",
+        "tailwindcss",
+        "ts_ls",
+        "terraformls",
+    },
     automatic_enable = {
         exclude = {
             -- will setup below, wrapping by rust-tools

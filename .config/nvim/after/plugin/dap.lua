@@ -1,6 +1,14 @@
 local dap = require("dap")
 local dap_widgets = require("dap.ui.widgets")
 
+require("mason-nvim-dap").setup({
+    ensure_installed = {
+        "python",
+        "codellbd",
+        "cppdbg",
+    },
+})
+
 vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debugger: Continue" })
 vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Debugger: step over" })
 vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Debugger: step into" })

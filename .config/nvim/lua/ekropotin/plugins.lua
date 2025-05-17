@@ -15,29 +15,9 @@ require("lazy").setup({
         -- LSP Configuration & Plugins
         "neovim/nvim-lspconfig",
         dependencies = {
-            -- Automatically install LSPs to stdpath for neovim
             {
                 "mason-org/mason.nvim",
-                opts = {
-                    ensure_installed = {
-                        "black",
-                        "debugpy",
-                        "ruff",
-                        "pyright",
-                        "rust-analyzer",
-                        "codellbd",
-                        "cpptools",
-                        "marksman",
-                        "markdownlint",
-                        "taplo",
-                        "emmet-language-server",
-                        "svelte-language-sever",
-                        "tailwindcss-language-server",
-                        "typescript-language-server",
-                        "terraform-ls",
-                        "stylua",
-                    },
-                },
+                opts = {},
             },
             "mason-org/mason-lspconfig.nvim",
             -- Additional lua configuration, makes nvim stuff amazing!
@@ -155,31 +135,6 @@ require("lazy").setup({
         opts = {
             provider = "claude",
         },
-        keys = {
-            {
-                "<leader>aa",
-                function()
-                    require("avante.api").ask()
-                end,
-                desc = "avante: ask",
-                mode = { "n", "v" },
-            },
-            {
-                "<leader>ar",
-                function()
-                    require("avante.api").refresh()
-                end,
-                desc = "avante: refresh",
-            },
-            {
-                "<leader>ae",
-                function()
-                    require("avante.api").edit()
-                end,
-                desc = "avante: edit",
-                mode = "v",
-            },
-        },
         dependencies = {
             "stevearc/dressing.nvim",
             "MunifTanjim/nui.nvim",
@@ -203,5 +158,19 @@ require("lazy").setup({
     {
         "luckasRanarison/tailwind-tools.nvim",
         opts = {},
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap",
+        },
+    },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "nvimtools/none-ls.nvim",
+        },
     },
 }, {})
