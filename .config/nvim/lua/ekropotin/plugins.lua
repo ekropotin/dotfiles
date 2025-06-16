@@ -152,34 +152,6 @@ require("lazy").setup({
         "yetone/avante.nvim",
         event = "VeryLazy",
         build = "make",
-        opts = {
-            provider = "claude",
-        },
-        keys = {
-            {
-                "<leader>aa",
-                function()
-                    require("avante.api").ask()
-                end,
-                desc = "avante: ask",
-                mode = { "n", "v" },
-            },
-            {
-                "<leader>ar",
-                function()
-                    require("avante.api").refresh()
-                end,
-                desc = "avante: refresh",
-            },
-            {
-                "<leader>ae",
-                function()
-                    require("avante.api").edit()
-                end,
-                desc = "avante: edit",
-                mode = "v",
-            },
-        },
         dependencies = {
             "stevearc/dressing.nvim",
             "MunifTanjim/nui.nvim",
