@@ -2,6 +2,4 @@ google-chrome
 tmux-plugin-manager
 ttf-meslo-nerd-font-powerlevel10k
 xremap-gnome-bin
-yay-bin
-yay-bin-debug
 zen-browser-bin

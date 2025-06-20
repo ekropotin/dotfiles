@@ -68,7 +68,7 @@ if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &>
 
     echo "Installing yay"
     if ! command -v yay &> /dev/null; then
-        sudo pacman -S --needed base-devel 
+        sudo pacman -S --needed base-devel
         git clone https://aur.archlinux.org/yay.git /tmp/yay
         cd /tmp/yay
 
@@ -87,5 +87,8 @@ fi
 
 echo "setting zsh as default shell"
 chsh -s $(which zsh)
+
+echo "rebuilding bat cache"
+bat cache --build
 
 echo "done"
