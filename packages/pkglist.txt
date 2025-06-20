@@ -92,3 +92,4 @@ xorg-xwud
 xterm
 zoxide
 zsh
+wget

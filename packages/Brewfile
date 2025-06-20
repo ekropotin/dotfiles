@@ -51,8 +51,7 @@ cask "intellij-idea"
 cask "kitty"
 
 # Fonts
-cask "homebrew/cask-fonts"
-brew "font-meslo-lg-nerd-font"
+cask "font-meslo-lg-nerd-font"
 
 # Shell customizations
 brew "zsh-syntax-highlighting"
