@@ -19,24 +19,6 @@ require("lazy").setup({
             {
                 "mason-org/mason.nvim",
                 opts = {
-                    ensure_installed = {
-                        "black",
-                        "debugpy",
-                        "ruff",
-                        "pyright",
-                        "rust-analyzer",
-                        "codellbd",
-                        "cpptools",
-                        "marksman",
-                        "markdownlint",
-                        "taplo",
-                        "emmet-language-server",
-                        "svelte-language-sever",
-                        "tailwindcss-language-server",
-                        "typescript-language-server",
-                        "terraform-ls",
-                        "stylua",
-                    },
                 },
             },
             "mason-org/mason-lspconfig.nvim",
@@ -175,5 +157,19 @@ require("lazy").setup({
     {
         "luckasRanarison/tailwind-tools.nvim",
         opts = {},
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap",
+        },
+    },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "nvimtools/none-ls.nvim",
+        },
     },
 }, {})
