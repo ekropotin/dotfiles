@@ -39,6 +39,7 @@ vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 
 telescope.setup({
     defaults = {
+        file_ignore_patterns = { "^.git/" },
         mappings = {
             i = {
                 ["<C-u>"] = false,
@@ -69,7 +70,9 @@ vim.keymap.set("n", "<leader>/", function()
     }))
 end, { desc = "[/] Fuzzily search in current buffer" })
 vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Search [g]it [f]iles" })
-vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[s]earch [f]iles" })
+vim.keymap.set("n", "<leader>sf", function()
+    builtin.find_files({ hidden = true })
+end, { desc = "[s]earch [f]iles" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[s]earch [h]elp" })
 vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[s]earch current [w]ord" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[s]earch by [g]rep" })
