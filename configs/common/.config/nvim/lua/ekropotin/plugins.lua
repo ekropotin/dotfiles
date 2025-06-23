@@ -18,8 +18,7 @@ require("lazy").setup({
             -- Automatically install LSPs to stdpath for neovim
             {
                 "mason-org/mason.nvim",
-                opts = {
-                },
+                opts = {},
             },
             "mason-org/mason-lspconfig.nvim",
             -- Additional lua configuration, makes nvim stuff amazing!
@@ -170,6 +169,12 @@ require("lazy").setup({
         dependencies = {
             "williamboman/mason.nvim",
             "nvimtools/none-ls.nvim",
+        },
+    },
+    {
+        "greggh/claude-code.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim", -- Required for git operations
         },
     },
 }, {})
