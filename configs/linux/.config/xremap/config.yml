@@ -1,7 +1,0 @@
-keymap:
-  - name: "Cmd to Ctrl for common shortcuts, excluding kitty"
-    remap:
-      Super-c: Ctrl-c
-      Super-v: Ctrl-v
-      Super-a: Ctrl-a
-      Super-x: Ctrl-x

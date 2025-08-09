@@ -5,6 +5,7 @@ require("conform").setup({
         javascript = { "prettier" },
         typescript = { "prettier" },
         lua = { "stylua" },
+        rust = { "rustfmt" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
     },
     format_on_save = {
