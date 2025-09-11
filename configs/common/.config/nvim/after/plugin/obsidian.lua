@@ -1,6 +1,24 @@
 local obsidian_vault_path = vim.env.OBSIDIAN_VAULT
-if obsidian_vault_path == nil then
-    obsidian_vault_path = vim.env.HOME
+
+if obsidian_vault_path == nil or obsidian_vault_path == "" then
+    vim.notify("Obsidian: OBSIDIAN_VAULT environment variable is not set or empty", vim.log.levels.DEBUG)
+    return
+end
+
+-- Expand the path to handle ~ and relative paths
+local expanded_path = vim.fn.expand(obsidian_vault_path)
+
+-- Convert to absolute path if it's not already
+if not vim.startswith(expanded_path, "/") then
+    expanded_path = vim.fn.fnamemodify(expanded_path, ":p")
+end
+
+-- Remove trailing slash if present
+obsidian_vault_path = expanded_path:gsub("/$", "")
+
+if vim.fn.isdirectory(obsidian_vault_path) ~= 1 then
+    vim.notify("Obsidian: Vault directory does not exist: " .. obsidian_vault_path, vim.log.levels.WARN)
+    return
 end
 
 local note_id_func = function(title)
