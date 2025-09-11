@@ -17,7 +17,6 @@ require("mason-lspconfig").setup({
     ensure_installed = {
         "ruff",
         "pyright",
-        "marksman",
         "taplo",
         "emmet_ls",
         "svelte",
@@ -61,3 +60,22 @@ rt.setup({
         adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
     },
 })
+
+-- setup Quickmark manually for the time being
+
+local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
+
+if not configs.quickmark then
+    configs.quickmark = {
+        default_config = {
+            -- quickmark-server should be in the PATH
+            cmd = { "quickmark-server" },
+            filetypes = { "markdown" },
+            root_dir = lspconfig.util.root_pattern("quickmark.toml", ".git"),
+            settings = {},
+            single_file_support = true,
+        },
+    }
+end
+lspconfig.quickmark.setup({})
