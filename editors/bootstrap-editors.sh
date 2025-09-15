@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$HOME/.vscode-config"
+REPO_DIR=$(pwd)
 OS="$(uname -s)"
 
 # Resolve user directories for VSCode and Cursor
@@ -60,7 +60,7 @@ bootstrap_editor() {
     if [ -f "$REPO_DIR/extensions.txt" ]; then
         echo "Installing extensions for $editor_name"
         if command -v "$editor_name" >/dev/null 2>&1; then
-            xargs -n1 "$editor_name" --install-extension < "$REPO_DIR/extensions.txt"
+            xargs -n1 "$editor_name" --install-extension < "$REPO_DIR/extensions.txt" || echo "⚠️  Some extensions failed to install for $editor_name"
         else
             echo "⚠️  $editor_name CLI not found, skipping extensions install"
         fi
