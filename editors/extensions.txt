@@ -1,0 +1,15 @@
+alefragnani.bookmarks
+anthropic.claude-code
+anysphere.cursorpyright
+bungcip.better-toml
+catppuccin.catppuccin-vsc
+github.vscode-github-actions
+ms-azuretools.vscode-containers
+ms-azuretools.vscode-docker
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+quickmark.vscode-quickmark
+rust-lang.rust-analyzer
+vscodevim.vim
+yoshinorin.current-file-path

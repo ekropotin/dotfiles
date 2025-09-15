@@ -1,0 +1,404 @@
+{
+  "window.commandCenter": true,
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "vim.leader": " ",
+  "vim.useCtrlKeys": true,
+  "vim.incsearch": true,
+  "editor.lineNumbers": "relative",
+  "workbench.editor.showTabs": "none",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // Goto / Find (Telescope-like)
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "d"
+      ],
+      "commands": [
+        "editor.action.revealDeclaration"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "f"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.referenceSearch.trigger"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "g"
+      ],
+      "commands": [
+        "workbench.action.findInFiles"
+      ]
+    },
+    // Harpoon-like
+    {
+      "before": [
+        "<leader>",
+        "a"
+      ],
+      "commands": [
+        "bookmarks.toggle"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "commands": [
+        "bookmarks.list"
+      ]
+    },
+    {
+      "before": [
+        "/",
+        "d"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
+    },
+    {
+      "before": [
+        ".",
+        "d"
+      ],
+      "commands": [
+        "editor.action.marker.prev"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "e"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    // Diagnostics
+    // Docs and actions
+    {
+      "before": [
+        "<leader>",
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "n"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c",
+        "a"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    // Debugging
+    {
+      "before": [
+        "<leader>",
+        "b"
+      ],
+      "commands": [
+        "editor.debug.action.toggleBreakpoint"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "s"
+      ],
+      "commands": [
+        "workbench.view.scm"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "r"
+      ],
+      "commands": [
+        "workbench.action.debug.start"
+      ]
+    },
+    // Refactoring & Terminal
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "f"
+      ],
+      "commands": [
+        "editor.action.refactor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "t"
+      ],
+      "commands": [
+        "workbench.action.terminal.toggleTerminal"
+      ]
+    },
+    // Buffers
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "1"
+      ],
+      "commands": [
+        "workbench.action.openEditorAtIndex1"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "2"
+      ],
+      "commands": [
+        "workbench.action.openEditorAtIndex2"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "3"
+      ],
+      "commands": [
+        "workbench.action.openEditorAtIndex3"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "4"
+      ],
+      "commands": [
+        "workbench.action.openEditorAtIndex4"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "5"
+      ],
+      "commands": [
+        "workbench.action.openEditorAtIndex5"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "n"
+      ],
+      "commands": [
+        "workbench.action.nextEditor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.previousEditor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "l",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.showAllEditors"
+      ]
+    },
+    // Tree view
+    {
+      "before": [
+        "<leader>",
+        "v",
+        "f"
+      ],
+      "commands": [
+        "workbench.view.explorer"
+      ]
+    },
+    // Insert empty lines like Nvim
+    {
+      "before": [
+        "<leader>",
+        "o"
+      ],
+      "commands": [
+        "editor.action.insertLineAfter"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "O"
+      ],
+      "commands": [
+        "editor.action.insertLineBefore"
+      ]
+    },
+    // Window navigation (Ctrl-hjkl)
+    {
+      "before": [
+        "<C-h>"
+      ],
+      "commands": [
+        "workbench.action.navigateLeft"
+      ]
+    },
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "workbench.action.navigateDown"
+      ]
+    },
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "workbench.action.navigateUp"
+      ]
+    },
+    {
+      "before": [
+        "<C-l>"
+      ],
+      "commands": [
+        "workbench.action.navigateRight"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "J"
+      ],
+      "commands": [
+        "editor.action.moveLinesDownAction"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.moveLinesUpAction"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "Q"
+      ],
+      "after": [
+        "g",
+        "q"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        "<Up>"
+      ],
+      "after": [
+        "<NOP>"
+      ]
+    },
+    {
+      "before": [
+        "<Down>"
+      ],
+      "after": [
+        "<NOP>"
+      ]
+    },
+    {
+      "before": [
+        "<Left>"
+      ],
+      "after": [
+        "<NOP>"
+      ]
+    },
+    {
+      "before": [
+        "<Right>"
+      ],
+      "after": [
+        "<NOP>"
+      ]
+    }
+  ],
+  "breadcrumbs.enabled": false,
+  "currentFilePath.defaultPathStartsFrom": "workSpace",
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.shellIntegration.decorationsEnabled": false,
+  "terminal.integrated.defaultProfile.osx": "bash",
+  "editor.formatOnSave": true,
+  "git.autofetch": true,
+  "cursor.composer.shouldAllowCustomModes": true
+}
