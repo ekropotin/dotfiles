@@ -177,4 +177,5 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim", -- Required for git operations
         },
     },
+    "unblevable/quick-scope",
 }, {})

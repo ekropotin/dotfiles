@@ -16,7 +16,7 @@ end
 require("mason-lspconfig").setup({
     ensure_installed = {
         "ruff",
-        "pyright",
+        "pyrefly",
         "taplo",
         "emmet_ls",
         "svelte",
