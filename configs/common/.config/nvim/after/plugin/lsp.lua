@@ -24,6 +24,7 @@ require("mason-lspconfig").setup({
         "ts_ls",
         "terraformls",
         "bashls",
+        "yamlls",
     },
     automatic_enable = {
         exclude = {
@@ -66,16 +67,16 @@ rt.setup({
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
 
-if not configs.quickmark then
-    configs.quickmark = {
-        default_config = {
-            -- quickmark-server should be in the PATH
-            cmd = { "quickmark-server" },
-            filetypes = { "markdown" },
-            root_dir = lspconfig.util.root_pattern("quickmark.toml", ".git"),
-            settings = {},
-            single_file_support = true,
-        },
-    }
-end
+-- if not configs.quickmark then
+--     configs.quickmark = {
+--         default_config = {
+--             -- quickmark-server should be in the PATH
+--             cmd = { "quickmark-server" },
+--             filetypes = { "markdown" },
+--             root_dir = lspconfig.util.root_pattern("quickmark.toml", ".git"),
+--             settings = {},
+--             single_file_support = true,
+--         },
+--     }
+-- end
 lspconfig.quickmark.setup({})

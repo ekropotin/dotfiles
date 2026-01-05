@@ -90,6 +90,7 @@ plugins=(
     rust
     docker-compose
     terraform
+    jj
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -129,8 +130,13 @@ complete -F __start_kubectl k
 
 #GIT
 alias gci='git commit -a -m'
-alias gbc='git fetch && git checkout origin/$(git_main_branch) -b '
+alias gbc='git fetch && git checkout origin/$(git_main_branch) -b'
 alias gbp='git push origin $(current_branch)'
+
+#JJ
+alias jji='jj git init --colocate'
+alias jjf='jj git fetch'
+alias jjp='jj git push'
 
 # -- supercharge fzf --
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
