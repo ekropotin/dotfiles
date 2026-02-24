@@ -35,7 +35,7 @@
     os_icon                 # os identifier
     dir                     # current directory
     vcs                     # git status
-    jj                      # jujutsu (jj) status (replaces git in jj repos)
+    jj_status               # jujutsu (jj) status (replaces git in jj repos)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -1674,45 +1674,47 @@
   # Custom prefix.
   # typeset -g POWERLEVEL9K_TIME_PREFIX='%246Fat '
 
-  #####################################[ jj: jujutsu status ]######################################
+  ##################################[ jj_status: jujutsu status ]###################################
   # Jujutsu (jj) VCS status. Shown in jj repositories, replacing the git status.
-  # Displays: bookmark (magenta) or change_id (yellow), dirty indicator (*), conflict indicator.
-  function prompt_jj() {
-    jj root 2>/dev/null 1>/dev/null || return
+  # Uses jj's built-in color output converted to zsh prompt escapes.
+  autoload -Uz VCS_INFO_bydir_detect
 
-    local bookmark
-    bookmark=$(jj log --no-graph -r @ -T 'bookmarks' 2>/dev/null)
+  typeset -g POWERLEVEL9K_JJ_STATUS_COMMAND=(
+    jj log --ignore-working-copy --color never --revisions @ --no-graph --template '
+    if(root,
+      format_root_commit(self),
+      concat(
+        separate(" ",
+          if(immutable, label("immutable", "◆")),
+          if(conflict, label("conflict", "×")),
+          format_short_change_id_with_hidden_and_divergent_info(self),
+          truncate_end(18, bookmarks, "…"),
+          tags,
+          working_copies,
+          if(config("ui.show-cryptographic-signatures").as_boolean(),
+            format_short_cryptographic_signature(signature)),
+          if(empty, label("empty", "∅")),
+          if(description,
+            truncate_end(24, description.first_line(), "…"),
+            label(if(empty, "empty", "description placeholder"), "#"),
+          ),
+        ),
+        "\n"
+      ),
+    )')
 
-    local change_id
-    change_id=$(jj log --no-graph -r @ -T 'change_id.shortest(8)' 2>/dev/null)
+  function prompt_jj_status() {
+    local -A vcs_comm
+    vcs_comm[detect_need_file]=working_copy
 
-    local branch_icon=$'\uF126 '
-    local meta='%246F'
-    local res="${meta}jj "
-
-    # Show bookmark in magenta or change_id in yellow
-    if [[ -n "$bookmark" ]]; then
-      res+="%76F${branch_icon}%135F${bookmark//\%/%%}"
-    else
-      res+="%76F${branch_icon}%178F${change_id//\%/%%}"
-    fi
-
-    # Dirty indicator: working copy has changes (not empty)
-    if [[ $(jj log --no-graph -r @ -T 'empty' 2>/dev/null) == "false" ]]; then
-      res+=" %178F*"
-    fi
-
-    # Conflict indicator
-    if jj log --no-graph -r @ -T 'conflict' 2>/dev/null | grep -q 'true'; then
-      res+=" %196Fconflict"
-    fi
-
-    p10k segment -f 76 -t "$res"
+    VCS_INFO_bydir_detect .jj \
+    && p10k segment -t \
+        "$(${POWERLEVEL9K_JJ_STATUS_COMMAND[@]} | tr -d '\n')"
   }
 
   # Jujutsu prompt segment styling.
-  typeset -g POWERLEVEL9K_JJ_FOREGROUND=76
-  typeset -g POWERLEVEL9K_JJ_VISUAL_IDENTIFIER_EXPANSION=''
+  typeset -g POWERLEVEL9K_JJ_STATUS_FOREGROUND=76
+  typeset -g POWERLEVEL9K_JJ_STATUS_VISUAL_IDENTIFIER_EXPANSION=''
 
   # Example of a user-defined prompt segment. Function prompt_example will be called on every
   # prompt if `example` prompt segment is added to POWERLEVEL9K_LEFT_PROMPT_ELEMENTS or
@@ -1774,17 +1776,15 @@
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
   # Dynamically disable VCS segment in jj repos by updating the workdir pattern.
-  # This completely prevents the VCS segment from rendering (no icon, no content).
+  # Uses VCS_INFO_bydir_detect for fast detection (no process spawning).
   function _toggle_jj_vcs() {
-    if (( $+commands[jj] )); then
-      local jj_root
-      jj_root=$(jj root 2>/dev/null)
-      if [[ -n "$jj_root" ]]; then
-        typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN="~|${jj_root}(|/*)"
-        return
-      fi
+    local -A vcs_comm
+    vcs_comm[detect_need_file]=working_copy
+    if VCS_INFO_bydir_detect .jj; then
+      typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN="~|${vcs_comm[basedir]}(|/*)"
+    else
+      typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN='~'
     fi
-    typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN='~'
   }
   autoload -Uz add-zsh-hook
   add-zsh-hook precmd _toggle_jj_vcs
