@@ -103,6 +103,9 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='nvim'
 
+# Load all jj config files from the config directory (allows local overrides)
+export JJ_CONFIG="$HOME/.config/jj/"
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 

@@ -1695,8 +1695,8 @@
             format_short_cryptographic_signature(signature)),
           if(empty, label("empty", "∅")),
           if(description,
-            truncate_end(24, description.first_line(), "…"),
-            label(if(empty, "empty", "description placeholder"), "#"),
+            "[" ++ truncate_end(24, description.first_line(), "…") ++ "]",
+            label(if(empty, "empty", "description placeholder"), "[#]"),
           ),
         ),
         "\n"
@@ -1780,10 +1780,15 @@
   function _toggle_jj_vcs() {
     local -A vcs_comm
     vcs_comm[detect_need_file]=working_copy
+    local old_pattern=$POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN
     if VCS_INFO_bydir_detect .jj; then
       typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN="~|${vcs_comm[basedir]}(|/*)"
     else
       typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN='~'
+    fi
+    # Force p10k to pick up the change (needed because hot reload is disabled)
+    if [[ $old_pattern != $POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN ]]; then
+      (( $+functions[p10k] )) && p10k reload
     fi
   }
   autoload -Uz add-zsh-hook
