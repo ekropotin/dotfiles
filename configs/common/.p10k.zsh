@@ -35,6 +35,7 @@
     os_icon                 # os identifier
     dir                     # current directory
     vcs                     # git status
+    jj_status               # jujutsu (jj) status (replaces git in jj repos)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -1673,6 +1674,48 @@
   # Custom prefix.
   # typeset -g POWERLEVEL9K_TIME_PREFIX='%246Fat '
 
+  ##################################[ jj_status: jujutsu status ]###################################
+  # Jujutsu (jj) VCS status. Shown in jj repositories, replacing the git status.
+  # Uses jj's built-in color output converted to zsh prompt escapes.
+  autoload -Uz VCS_INFO_bydir_detect
+
+  typeset -g POWERLEVEL9K_JJ_STATUS_COMMAND=(
+    jj log --ignore-working-copy --color never --revisions @ --no-graph --template '
+    if(root,
+      format_root_commit(self),
+      concat(
+        separate(" ",
+          if(immutable, label("immutable", "◆")),
+          if(conflict, label("conflict", "×")),
+          format_short_change_id_with_hidden_and_divergent_info(self),
+          truncate_end(18, bookmarks, "…"),
+          tags,
+          working_copies,
+          if(config("ui.show-cryptographic-signatures").as_boolean(),
+            format_short_cryptographic_signature(signature)),
+          if(empty, label("empty", "∅")),
+          if(description,
+            "[" ++ truncate_end(24, description.first_line(), "…") ++ "]",
+            label(if(empty, "empty", "description placeholder"), "[#]"),
+          ),
+        ),
+        "\n"
+      ),
+    )')
+
+  function prompt_jj_status() {
+    local -A vcs_comm
+    vcs_comm[detect_need_file]=working_copy
+
+    VCS_INFO_bydir_detect .jj \
+    && p10k segment -t \
+        "$(${POWERLEVEL9K_JJ_STATUS_COMMAND[@]} | tr -d '\n')"
+  }
+
+  # Jujutsu prompt segment styling.
+  typeset -g POWERLEVEL9K_JJ_STATUS_FOREGROUND=76
+  typeset -g POWERLEVEL9K_JJ_STATUS_VISUAL_IDENTIFIER_EXPANSION=''
+
   # Example of a user-defined prompt segment. Function prompt_example will be called on every
   # prompt if `example` prompt segment is added to POWERLEVEL9K_LEFT_PROMPT_ELEMENTS or
   # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
@@ -1731,6 +1774,25 @@
   # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
   # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
+
+  # Dynamically disable VCS segment in jj repos by updating the workdir pattern.
+  # Uses VCS_INFO_bydir_detect for fast detection (no process spawning).
+  function _toggle_jj_vcs() {
+    local -A vcs_comm
+    vcs_comm[detect_need_file]=working_copy
+    local old_pattern=$POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN
+    if VCS_INFO_bydir_detect .jj; then
+      typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN="~|${vcs_comm[basedir]}(|/*)"
+    else
+      typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN='~'
+    fi
+    # Force p10k to pick up the change (needed because hot reload is disabled)
+    if [[ $old_pattern != $POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN ]]; then
+      (( $+functions[p10k] )) && p10k reload
+    fi
+  }
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _toggle_jj_vcs
 
   # If p10k is already loaded, reload configuration.
   # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.

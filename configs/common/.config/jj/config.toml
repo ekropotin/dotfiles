@@ -1,0 +1,21 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Evgeny Kropotin"
+email = "ekropotin@gmail.com"
+
+[ui]
+# merge-editor = ["/Applications/p4merge.app/Contents/Resources/launchp4merge", "$base", "$right", "$left", "$output"]
+# diff-editor = ["/Applications/p4merge.app/Contents/Resources/launchp4merge", "$left", "$right"]
+#
+[aliases]
+push = ["git", "push"]
+fetch = ["git", "fetch"]
+
+# Move bookmark on the latest non-empty change set and push
+push-top = ["util", "exec", "--", "bash", "-c", """
+    target=$(jj log -r @ --no-graph -T 'if(empty, "@-", "@")')
+    bm=$(jj log -r 'latest(bookmarks() & ::@)' --no-graph -T 'local_bookmarks.map(|b| b.name()).join("\n")' | head -1)
+    if [ -z "$bm" ]; then echo "No bookmark found in stack"; exit 1; fi
+    jj bookmark set "$bm" -r "$target" && jj git push -b "$bm"
+"""]
