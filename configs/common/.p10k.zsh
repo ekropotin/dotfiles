@@ -1687,7 +1687,7 @@
         separate(" ",
           if(immutable, label("immutable", "◆")),
           if(conflict, label("conflict", "×")),
-          format_short_change_id_with_hidden_and_divergent_info(self),
+          format_short_change_id(self.change_id()),
           truncate_end(18, bookmarks, "…"),
           tags,
           working_copies,
