@@ -5,6 +5,8 @@ name = "Evgeny Kropotin"
 email = "ekropotin@gmail.com"
 
 [ui]
+pager = ["delta"]
+diff-formatter = ":git"
 # merge-editor = ["/Applications/p4merge.app/Contents/Resources/launchp4merge", "$base", "$right", "$left", "$output"]
 # diff-editor = ["/Applications/p4merge.app/Contents/Resources/launchp4merge", "$left", "$right"]
 #
