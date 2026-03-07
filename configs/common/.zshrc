@@ -234,3 +234,4 @@ elif [ -d "$HOME/.sdkman" ]; then
 fi
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
+export PATH="$HOME/.local/bin:$PATH"
