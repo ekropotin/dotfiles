@@ -7,9 +7,16 @@ email = "ekropotin@gmail.com"
 [ui]
 pager = ["delta"]
 diff-formatter = ":git"
-# merge-editor = ["/Applications/p4merge.app/Contents/Resources/launchp4merge", "$base", "$right", "$left", "$output"]
-# diff-editor = ["/Applications/p4merge.app/Contents/Resources/launchp4merge", "$left", "$right"]
-#
+merge-editor = "p4merge"
+
+[merge-tools.p4merge]
+program = "p4merge"
+# For viewing diffs (jj diff --tool p4merge)
+diff-args = ["$left", "$right"]
+diff-invocation-mode = "file-by-file"
+# For conflict resolution (jj resolve)
+merge-args = ["$base", "$left", "$right", "$output"]
+
 [aliases]
 push = ["git", "push"]
 fetch = ["git", "fetch"]

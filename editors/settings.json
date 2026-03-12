@@ -400,5 +400,6 @@
   "terminal.integrated.defaultProfile.osx": "bash",
   "editor.formatOnSave": true,
   "git.autofetch": true,
-  "cursor.composer.shouldAllowCustomModes": true
+  "cursor.composer.shouldAllowCustomModes": true,
+  "chat.viewSessions.orientation": "stacked"
 }
