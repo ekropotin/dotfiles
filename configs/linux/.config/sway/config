@@ -148,8 +148,7 @@ bindsym $mod+r mode "resize"
 
 exec waybar
 
-# For 4k Monitor.
-output HDMI-A-1 scale 1.75
+exec ~/.config/sway/scripts/outputs.sh
 
 input * {
     natural_scroll enabled

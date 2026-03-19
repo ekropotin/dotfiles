@@ -17,13 +17,6 @@ else
     echo "cht already linked"
 fi
 
-echo "installing oh-my-zsh"
-if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    echo "oh-my-zsh installed"
-else
-    echo "oh-my-zsh already installed"
-fi
 
 echo "installing tmux plugin manager"
 if [[ ! -d "$HOME/.config/tmux/plugins/tpm" ]]; then
@@ -33,13 +26,6 @@ else
     echo "tmux plugin manager already installed"
 fi
 
-echo "installing powerlevel10k"
-if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-    echo "powerlevel10k installed"
-else
-    echo "powerlevel10k already installed"
-fi
 
 # Detect OS and install appropriate package manager
 OS=$(uname -s)
@@ -63,6 +49,10 @@ fi
 if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &> /dev/null); then
     echo "Detected Arch Linux"
 
+    echo "Updating package database"
+    sudo pacman -Syy
+    sudo pacman -S python-filelock
+
     echo "Installing official packages"
     sudo pacman -S --needed - < pkglist.txt
 
@@ -74,7 +64,7 @@ if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &>
 
         # This is a workaround to fix the issue with yay not being able to resolve DNS
         # https://github.com/Jguer/yay/issues/1400
-        ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+        sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
         makepkg -si --noconfirm
         cd -
         rm -rf /tmp/yay
@@ -87,6 +77,22 @@ fi
 
 echo "setting zsh as default shell"
 chsh -s $(which zsh)
+
+echo "installing oh-my-zsh"
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    echo "oh-my-zsh installed"
+else
+    echo "oh-my-zsh already installed"
+fi
+
+echo "installing powerlevel10k"
+if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+    echo "powerlevel10k installed"
+else
+    echo "powerlevel10k already installed"
+fi
 
 echo "rebuilding bat cache"
 bat cache --build

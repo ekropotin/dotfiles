@@ -18,9 +18,9 @@
 
     "modules-right": [
         "tray",
-        "cpu_text",
+        "battery",
         "cpu",
-        "memory",
+        "memory"
     ],
 
     "sway/workspaces": {
@@ -36,6 +36,18 @@
 
     "clock": {
         "format": "{:%a %d, %I:%M %p}",
+        "tooltip": false
+    },
+
+    "battery": {
+        "format": "bat {capacity}%",
+        "format-charging": "bat+ {capacity}%",
+        "format-full": "bat full",
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
         "tooltip": false
     },
 
@@ -55,5 +67,5 @@
         "states": {
             "critical": 80
         }
-    },
+    }
 }

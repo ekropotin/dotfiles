@@ -1,5 +1,6 @@
 google-chrome
 tmux-plugin-manager
+tofi
 ttf-meslo-nerd-font-powerlevel10k
 xremap-gnome-bin
 zen-browser-bin
