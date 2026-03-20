@@ -9,7 +9,8 @@
     "margin-left": 0,
 
     "modules-left": [
-        "sway/workspaces"
+        "sway/workspaces",
+        "sway/mode"
     ],
 
     "modules-center": [
@@ -18,10 +19,15 @@
 
     "modules-right": [
         "tray",
+        "custom/mouse-battery",
         "battery",
         "cpu",
         "memory"
     ],
+
+    "sway/mode": {
+        "tooltip": false
+    },
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -36,6 +42,12 @@
 
     "clock": {
         "format": "{:%a %d, %I:%M %p}",
+        "tooltip": false
+    },
+
+    "custom/mouse-battery": {
+        "exec": "~/.config/waybar/scripts/mouse_battery.sh",
+        "interval": 60,
         "tooltip": false
     },
 

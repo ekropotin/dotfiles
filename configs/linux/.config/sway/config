@@ -10,7 +10,7 @@ font pango:monospace 8
 
 # setup clipboard manager
 exec wl-paste --watch cliphist store
-bindsym $mod+Control+c exec sh -c 'cliphist list | tofi --prompt-text "Clipboard:" | cliphist decode | wl-copy && sleep 0.1 && wtype -M ctrl v -m ctrl'
+bindsym Mod4+c exec sh -c 'cliphist list | tofi --prompt-text "Clipboard:" | cliphist decode | wl-copy && sleep 0.1 && wtype -M ctrl v -m ctrl'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -20,7 +20,7 @@ floating_modifier $mod
 #tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym Mod4+Return exec kitty
 # kill focused window
 bindsym Mod4+q kill
 
@@ -28,7 +28,7 @@ bindsym Mod4+q kill
 bindsym Mod4+space exec --no-startup-id tofi-drun | xargs swaymsg exec --
 
 # cycle focus between windows
-bindsym Mod4+Tab focus next
+bindsym $mod+Tab focus next
 
 # change focus
 bindsym $mod+h focus left
@@ -114,11 +114,9 @@ bindsym Mod4+3 exec grim ~/Pictures/screenshot-$(date +%F_%T).png
 bindsym Mod4+4 exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F_%T).png
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
-# restart sway
-bindsym $mod+Shift+r restart
+bindsym Mod4+Shift+r reload
 # exit sway
-bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'
+bindsym Mod4+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -127,10 +125,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -147,8 +145,14 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec waybar
+exec systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY DISPLAY
+
 
 exec ~/.config/sway/scripts/outputs.sh
+
+# Open kitty with tmux in workspace 1 on startup
+assign [app_id="kitty"] workspace number $ws1
+exec kitty tmux new-session -A -s main
 
 input * {
     natural_scroll enabled

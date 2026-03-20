@@ -26,6 +26,7 @@ neovim
 networkmanager
 nodejs
 noto-fonts
+noto-fonts-emoji
 npm
 nvtop
 openssh
@@ -34,6 +35,7 @@ ripgrep
 seahorse
 slurp
 snapper
+solaar
 sudo
 sway
 tmux
@@ -41,6 +43,7 @@ ttf-dejavu
 ttf-font-awesome
 ttf-liberation
 unzip
+usbutils
 uv
 waybar
 wget
