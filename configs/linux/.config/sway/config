@@ -148,7 +148,7 @@ bindsym $mod+r mode "resize"
 
 exec waybar
 
-exec ~/.config/sway/scripts/outputs.sh
+exec kanshi
 
 input * {
     natural_scroll enabled
