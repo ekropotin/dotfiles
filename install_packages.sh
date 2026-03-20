@@ -73,6 +73,11 @@ if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &>
     fi
     echo "Installing yay packages"
     yay -S --needed - < aurlist.txt
+
+    echo "Configuring greetd"
+    sudo mkdir -p /etc/greetd
+    sudo cp "$OLDPWD/configs/linux/etc/greetd/config.toml" /etc/greetd/config.toml
+    sudo systemctl enable greetd
 fi
 
 echo "setting zsh as default shell"

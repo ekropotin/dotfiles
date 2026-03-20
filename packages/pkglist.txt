@@ -11,12 +11,15 @@ git
 git-delta
 grim
 gnome-keyring
-grub
+greetd
+greetd-tuigreet
 jq
+kanshi
 kitty
 less
 linux
 linux-firmware
+linux-headers
 meld
 mesa-utils
 neovim
@@ -24,8 +27,6 @@ networkmanager
 nodejs
 noto-fonts
 npm
-nvidia-open
-nvidia-utils
 nvtop
 openssh
 python-pip
