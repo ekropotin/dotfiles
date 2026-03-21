@@ -1,11 +1,12 @@
 #!/bin/bash
 
-OUTPUTS=$(swaymsg -t get_outputs)
+# Move all workspaces to the given output (default: eDP-1)
+TARGET=${1:-eDP-1}
 
-if echo "$OUTPUTS" | grep -q '"name": "eDP-1"'; then
-    swaymsg output eDP-1 scale 2
-fi
+sleep 0.5
 
-if echo "$OUTPUTS" | grep -q '"name": "HDMI-A-1"'; then
-    swaymsg output HDMI-A-1 scale 1.75
-fi
+for ws in 1 2 3 4 5; do
+    swaymsg "workspace --no-auto-back-and-forth number $ws; move workspace to output $TARGET"
+done
+
+swaymsg workspace number 1
