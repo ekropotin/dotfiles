@@ -69,7 +69,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+f floating toggle, resize set 1344 756
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -78,7 +78,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+d focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -158,5 +158,6 @@ exec kitty tmux new-session -A -s main
 input * {
     natural_scroll enabled
 }
+
 
 include ~/.config/sway/theme

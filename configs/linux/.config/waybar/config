@@ -10,7 +10,8 @@
 
     "modules-left": [
         "sway/workspaces",
-        "sway/mode"
+        "sway/mode",
+        "custom/split-mode"
     ],
 
     "modules-center": [
@@ -32,6 +33,12 @@
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
+        "tooltip": false
+    },
+
+    "custom/split-mode": {
+        "exec": "~/.config/waybar/scripts/split_mode.sh",
+        "exec-on-event": false,
         "tooltip": false
     },
 

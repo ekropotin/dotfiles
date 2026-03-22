@@ -1,9 +1,17 @@
 #!/bin/bash
 
-layout=$(swaymsg -t get_tree | jq '.. | objects? | select(.focused? == true) | .layout' -r)
+get_layout() {
+  local layout
+  layout=$(swaymsg -t get_tree | jq -r '[recurse(.nodes[]?, .floating_nodes[]?) | select(.nodes[]?.focused == true or .floating_nodes[]?.focused == true) | .layout] | last')
+  case "$layout" in
+    splith) echo "H" ;;
+    splitv) echo "V" ;;
+    *)      echo "-" ;;
+  esac
+}
 
-case "$layout" in
-  splith) echo " H" ;;   # horizontal
-  splitv) echo " V" ;;   # vertical
-  *)      echo " Auto" ;; # default or tabbed/stacked
-esac
+get_layout
+
+swaymsg -t subscribe -m '["window","binding"]' | jq --unbuffered -r '.change' | while read -r _; do
+  get_layout
+done

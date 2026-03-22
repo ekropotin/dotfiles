@@ -35,6 +35,7 @@
 | `Alt+←/↓/↑/→` | Focus left/down/up/right |
 | `Alt+Tab` | Cycle focus to next window |
 | `Alt+a` | Focus parent container |
+| `Alt+d` | Focus child container |
 | `Alt+Space` | Toggle focus between tiling/floating |
 
 ### Move Windows (Alt)
@@ -53,7 +54,7 @@
 | `Alt+f` | Toggle fullscreen |
 | `Alt+s` | Stacking layout |
 | `Alt+w` | Tabbed layout |
-| `Alt+e` | Toggle split layout |
+| `Alt+e` | Toggle split direction (horizontal/vertical) |
 | `Alt+Shift+f` | Toggle floating |
 
 ### Workspaces (Alt)
