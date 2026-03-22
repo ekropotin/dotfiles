@@ -146,6 +146,7 @@ bindsym $mod+r mode "resize"
 
 exec waybar
 exec systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY DISPLAY
+exec_always ~/.config/sway/scripts/refresh-tmux-env.sh
 
 
 exec ~/.config/sway/scripts/outputs.sh
