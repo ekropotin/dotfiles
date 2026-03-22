@@ -3,6 +3,8 @@ alsa-lib
 base
 base-devel
 bat
+bluez
+bluez-utils
 cliphist
 cuda
 eza
@@ -12,9 +14,8 @@ git-delta
 grim
 gnome-keyring
 greetd
-greetd-tuigreet
+greetd-gtkgreet
 jq
-kanshi
 kitty
 less
 linux
@@ -38,6 +39,8 @@ snapper
 solaar
 sudo
 sway
+swayidle
+swaylock
 tmux
 ttf-dejavu
 ttf-font-awesome

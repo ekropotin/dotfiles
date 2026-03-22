@@ -33,6 +33,7 @@
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
+        "format": "{name}",
         "tooltip": false
     },
 
