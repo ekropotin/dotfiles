@@ -14,9 +14,12 @@
 | `Super+Return` | Open terminal (kitty) |
 | `Super+Space` | App launcher (tofi) |
 | `Super+q` | Kill focused window |
-| `Super+c` | Clipboard picker |
+| `Alt+Super+c` | Clipboard picker |
+| `Super+p` | Force display reprobe |
 | `Super+Shift+r` | Reload sway config |
 | `Super+Shift+e` | Exit sway |
+| `F12` | Lock screen |
+| `Shift+F12` | Suspend |
 
 ### Screenshots (Super)
 
@@ -32,9 +35,10 @@
 | Key | Action |
 |---|---|
 | `Alt+h/j/k/l` | Focus left/down/up/right |
-| `Alt+←/↓/↑/→` | Focus left/down/up/right |
+| `Alt+Left/Down/Up/Right` | Focus left/down/up/right |
 | `Alt+Tab` | Cycle focus to next window |
 | `Alt+a` | Focus parent container |
+| `Alt+d` | Focus child container |
 | `Alt+Space` | Toggle focus between tiling/floating |
 
 ### Move Windows (Alt)
@@ -42,7 +46,7 @@
 | Key | Action |
 |---|---|
 | `Alt+Shift+h/j/k/l` | Move window left/down/up/right |
-| `Alt+Shift+←/↓/↑/→` | Move window left/down/up/right |
+| `Alt+Shift+Left/Down/Up/Right` | Move window left/down/up/right |
 
 ### Layout (Alt)
 
@@ -53,8 +57,8 @@
 | `Alt+f` | Toggle fullscreen |
 | `Alt+s` | Stacking layout |
 | `Alt+w` | Tabbed layout |
-| `Alt+e` | Toggle split layout |
-| `Alt+Shift+f` | Toggle floating |
+| `Alt+e` | Toggle split direction (horizontal/vertical) |
+| `Alt+Shift+f` | Toggle floating (resizes to 1344x756) |
 
 ### Workspaces (Alt)
 
@@ -69,5 +73,5 @@
 |---|---|
 | `Alt+r` | Enter resize mode |
 | `h/j/k/l` | Shrink width / grow height / shrink height / grow width |
-| `←/↓/↑/→` | Same as above |
+| `Left/Down/Up/Right` | Same as above |
 | `Escape` / `Enter` / `Alt+r` | Exit resize mode |

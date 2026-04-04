@@ -10,7 +10,7 @@ font pango:monospace 8
 
 # setup clipboard manager
 exec wl-paste --watch cliphist store
-bindsym Mod4+c exec sh -c 'cliphist list | tofi --prompt-text "Clipboard:" | cliphist decode | wl-copy && sleep 0.1 && wtype -M ctrl v -m ctrl'
+bindsym Mod1+Mod4+c exec sh -c 'cliphist list | tofi --prompt-text "Clipboard:" | cliphist decode | wl-copy && sleep 0.1 && wtype -M ctrl v -m ctrl'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -69,7 +69,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+f floating toggle, resize set 1344 756
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -78,12 +78,12 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+d focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
+set $ws1 "1:Main"
+set $ws2 "2:Notes"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
@@ -109,9 +109,12 @@ bindsym Shift+Mod4+4 exec grim -g "$(slurp)" - | wl-copy
 # Fullscreen to clipboard (Shift + Super + 3)
 bindsym Shift+Mod4+3 exec grim - | wl-copy
 # Fullscreen to file (Super + 3)
-bindsym Mod4+3 exec grim ~/Pictures/screenshot-$(date +%F_%T).png
+bindsym Mod4+3 exec sh -c 'grim ~/Pictures/screenshot-$(date +%F_%T).png'
 # Region to file (Super + 4)
-bindsym Mod4+4 exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F_%T).png
+bindsym Mod4+4 exec sh -c 'grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F_%T).png'
+
+# suspend
+bindsym Shift+F12 exec systemctl suspend
 
 # reload the configuration file
 bindsym Mod4+Shift+r reload
@@ -150,13 +153,22 @@ exec_always ~/.config/sway/scripts/refresh-tmux-env.sh
 
 
 exec ~/.config/sway/scripts/outputs.sh
+exec swayidle -w timeout 300 ~/.config/sway/scripts/idle-suspend.sh
+
+# Lock screen
+bindsym F12 exec swaylock -f -c 000000
 
 # Open kitty with tmux in workspace 1 on startup
-assign [app_id="kitty"] workspace number $ws1
-exec kitty tmux new-session -A -s main
+exec swaymsg "workspace number $ws1; exec kitty tmux new-session -A -s main"
+
+assign [app_id="obsidian"] workspace number $ws2
+for_window [app_id="obsidian"] fullscreen enable
+exec sleep 2 && ~/Applications/obsidian
 
 input * {
     natural_scroll enabled
+    xkb_options caps:none
 }
+
 
 include ~/.config/sway/theme
