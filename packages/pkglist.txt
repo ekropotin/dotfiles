@@ -6,10 +6,10 @@ bat
 bluez
 bluez-utils
 cliphist
-cuda
 eza
 fzf
 git
+jujutsu
 git-delta
 grim
 gnome-keyring
@@ -19,7 +19,6 @@ jq
 kitty
 less
 linux
-linux-firmware
 linux-headers
 meld
 mesa-utils
@@ -29,6 +28,11 @@ nodejs
 noto-fonts
 noto-fonts-emoji
 npm
+pipewire
+pipewire-alsa
+pipewire-pulse
+rtkit
+wireplumber
 nvtop
 openssh
 python-pip
@@ -48,6 +52,7 @@ ttf-liberation
 unzip
 usbutils
 uv
+vivaldi
 waybar
 wget
 wl-clipboard

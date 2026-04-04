@@ -113,9 +113,6 @@ bindsym Mod4+3 exec sh -c 'grim ~/Pictures/screenshot-$(date +%F_%T).png'
 # Region to file (Super + 4)
 bindsym Mod4+4 exec sh -c 'grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F_%T).png'
 
-# force display reprobe (Super+p)
-bindsym Mod4+p exec sudo ~/.config/sway/scripts/drm-reprobe.sh
-
 # suspend
 bindsym Shift+F12 exec systemctl suspend
 

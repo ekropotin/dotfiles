@@ -2,5 +2,5 @@
 vt = 2
 
 [default_session]
-command = "tuigreet --time --remember --cmd 'WLR_DRM_DEVICES=/dev/dri/card1 sway'"
+command = "tuigreet --time --remember --cmd sway"
 user = "greeter"

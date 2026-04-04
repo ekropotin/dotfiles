@@ -3,7 +3,7 @@
 BUILTIN=$(swaymsg -t get_outputs -r | jq -r '.[] | select(.name | startswith("eDP")) | .name' | head -1)
 
 # Scale the built-in display
-swaymsg output "$BUILTIN" scale 2
+swaymsg output "$BUILTIN" scale 1
 
 # Find the first connected external output (if any)
 get_external() {
