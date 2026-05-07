@@ -21,9 +21,11 @@
     "modules-right": [
         "tray",
         "custom/mouse-battery",
+        "network",
         "battery",
+        "memory",
         "cpu",
-        "memory"
+        "pulseaudio"
     ],
 
     "sway/mode": {
@@ -56,13 +58,23 @@
     "custom/mouse-battery": {
         "exec": "~/.config/waybar/scripts/mouse_battery.sh",
         "interval": 60,
+        "format": "󰍽 {}",
+        "tooltip": false
+    },
+
+    "network": {
+        "format-wifi": "󰤨 {essid} {signalStrength}%",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰤭 offline",
+        "interval": 10,
         "tooltip": false
     },
 
     "battery": {
-        "format": "bat {capacity}%",
-        "format-charging": "bat+ {capacity}%",
-        "format-full": "bat full",
+        "format": "󰁹 {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-full": "󰁹 full",
+        "format-plugged": "󰚥 {capacity}%",
         "interval": 30,
         "states": {
             "warning": 30,
@@ -72,20 +84,32 @@
     },
 
     "cpu": {
-        "format": "cpu {usage}%",
+        "format": "󰻠 {usage}%",
         "interval": 2,
-
+        "on-click": "kitty htop",
         "states": {
             "critical": 90
-        }
+        },
+        "tooltip": false
     },
 
     "memory": {
-        "format": "mem {percentage}%",
+        "format": "󰍛 {percentage}%",
         "interval": 2,
-
         "states": {
             "critical": 80
-        }
+        },
+        "tooltip": false
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁 muted",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol",
+        "scroll-step": 5,
+        "tooltip": false
     }
 }

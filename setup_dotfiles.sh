@@ -121,6 +121,35 @@ process_dotfiles() {
     fi
 }
 
+# Symlink keyd config to /etc/keyd and enable the service (Linux only)
+setup_keyd() {
+    local source="$CONFIGS_DIR/linux/etc/keyd/default.conf"
+    local target="/etc/keyd/default.conf"
+
+    if [[ ! -f "$source" ]]; then
+        return
+    fi
+
+    if ! command -v keyd >/dev/null 2>&1; then
+        echo -e "${YELLOW}keyd not installed, skipping keyd setup${NC}"
+        return
+    fi
+
+    echo -e "\n${BLUE}Setting up keyd config (requires sudo)...${NC}"
+
+    sudo mkdir -p /etc/keyd
+    if [[ -e "$target" && ! -L "$target" ]]; then
+        sudo mv "$target" "$target.backup_$(date +%Y%m%d_%H%M%S)"
+        echo -e "${YELLOW}Backed up existing $target${NC}"
+    fi
+    sudo ln -sf "$source" "$target"
+    echo -e "${GREEN}Linked $target -> $source${NC}"
+
+    sudo systemctl enable --now keyd
+    sudo systemctl reload keyd 2>/dev/null || sudo systemctl restart keyd
+    echo -e "${GREEN}keyd service enabled and reloaded${NC}"
+}
+
 # Main execution
 main() {
     echo -e "${GREEN}Starting dotfiles setup...${NC}"
@@ -140,12 +169,16 @@ main() {
     
     # Detect platform and process platform-specific dotfiles
     PLATFORM=$(detect_platform)
-    
+
     if [[ "$PLATFORM" == "unknown" ]]; then
         echo -e "${YELLOW}Warning: Unknown platform, skipping platform-specific configs${NC}"
     else
         echo -e "\n${BLUE}Detected platform: $PLATFORM${NC}"
         process_dotfiles "$CONFIGS_DIR/$PLATFORM" "$PLATFORM"
+
+        if [[ "$PLATFORM" == "linux" ]]; then
+            setup_keyd
+        fi
     fi
     
     echo -e "\n${GREEN}Dotfiles setup completed!${NC}"

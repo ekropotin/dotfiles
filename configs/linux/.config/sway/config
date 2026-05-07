@@ -10,14 +10,15 @@ font pango:monospace 8
 
 # setup clipboard manager
 exec wl-paste --watch cliphist store
-bindsym Mod1+Mod4+c exec sh -c 'cliphist list | tofi --prompt-text "Clipboard:" | cliphist decode | wl-copy && sleep 0.1 && wtype -M ctrl v -m ctrl'
+# Physical chord remains Alt+Super+C; keyd rewrites Super+C to Ctrl+C, so Sway sees Ctrl+Alt+C.
+bindsym Ctrl+Mod1+c exec sh -c 'cliphist list | tofi --prompt-text "Clipboard:" | cliphist decode | wl-copy && sleep 0.1 && wtype -M ctrl v -m ctrl'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-#tiling_drag modifier titlebar
+tiling_drag disable
 
 # start a terminal
 bindsym Mod4+Return exec kitty
@@ -27,8 +28,8 @@ bindsym Mod4+q kill
 # start tofi (a program launcher)
 bindsym Mod4+space exec --no-startup-id tofi-drun | xargs swaymsg exec --
 
-# cycle focus between windows
-bindsym $mod+Tab focus next
+# cycle focus between windows (Cmd+Tab muscle memory)
+bindsym Mod4+Tab focus next
 
 # change focus
 bindsym $mod+h focus left

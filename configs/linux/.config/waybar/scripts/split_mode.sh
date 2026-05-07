@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap 'exit 0' PIPE
+
 get_layout() {
   local layout
   layout=$(swaymsg -t get_tree | jq -r '[recurse(.nodes[]?, .floating_nodes[]?) | select(.nodes[]?.focused == true or .floating_nodes[]?.focused == true) | .layout] | last')
