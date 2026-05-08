@@ -1,0 +1,19 @@
+# Config for swtchr, a Gnome-style window switcher for Sway.
+# https://github.com/lostatc/swtchr
+#
+# Sway keybinds live in ~/.config/sway/config; this file controls the
+# switcher's own behavior once it's open.
+
+# Order windows with the urgency hint before all other windows.
+urgent_first = true
+
+# Gnome-like behavior: releasing the Super key dismisses the switcher and
+# focuses the selected window.
+dismiss_on_release = true
+select_on_release = true
+release_keys = ["Super_L"]
+
+[keymap]
+dismiss = "Escape"
+next = "<Super>Tab"
+prev = "<Super><Shift>Tab"

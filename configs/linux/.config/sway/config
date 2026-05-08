@@ -28,8 +28,11 @@ bindsym Mod4+q kill
 # start tofi (a program launcher)
 bindsym Mod4+space exec --no-startup-id tofi-drun | xargs swaymsg exec --
 
-# cycle focus between windows (Cmd+Tab muscle memory)
-bindsym Mod4+Tab focus next
+# Cmd+Tab window switcher (swtchr)
+exec_always swtchrd
+bindsym Mod4+Tab mode swtchr; exec swtchr
+bindsym Mod4+Shift+Tab mode swtchr; exec swtchr
+mode swtchr bindsym Backspace mode default
 
 # change focus
 bindsym $mod+h focus left
