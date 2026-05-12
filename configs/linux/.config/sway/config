@@ -29,7 +29,7 @@ bindsym Mod4+q kill
 bindsym Mod4+space exec --no-startup-id tofi-drun | xargs swaymsg exec --
 
 # Cmd+Tab window switcher (swtchr)
-exec_always swtchrd
+exec_always sh -c 'pkill swtchrd; swtchrd & sleep 0.5 && swtchr-seed'
 bindsym Mod4+Tab mode swtchr; exec swtchr
 bindsym Mod4+Shift+Tab mode swtchr; exec swtchr
 mode swtchr bindsym Backspace mode default
@@ -157,17 +157,20 @@ exec_always ~/.config/sway/scripts/refresh-tmux-env.sh
 
 
 exec ~/.config/sway/scripts/outputs.sh
-exec swayidle -w timeout 300 ~/.config/sway/scripts/idle-suspend.sh
+exec swayidle -w \
+    timeout 300 'swaylock -f' \
+    timeout 360 "$HOME/.config/sway/scripts/idle-suspend.sh" \
+    before-sleep 'swaylock -f'
 
-# Lock screen
-bindsym F12 exec swaylock -f -c 000000
+# Lock screen (Ctrl+Super+Q mirrors macOS Ctrl+Cmd+Q)
+bindsym Ctrl+Mod4+q exec swaylock -f
 
-# Open kitty with tmux in workspace 1 on startup
-exec swaymsg "workspace number $ws1; exec kitty tmux new-session -A -s main"
+# Set workspace 1 to tabbed layout and start kitty (with tmux) and vivaldi there on startup
+exec swaymsg "workspace number $ws1; layout tabbed; exec kitty tmux new-session -A -s main; exec vivaldi-stable"
 
 assign [app_id="obsidian"] workspace number $ws2
 for_window [app_id="obsidian"] fullscreen enable
-exec sleep 2 && ~/Applications/obsidian
+exec obsidian
 
 input * {
     natural_scroll enabled

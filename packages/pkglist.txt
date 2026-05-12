@@ -10,8 +10,10 @@ bluez
 bluez-utils
 bun
 cliphist
+ethtool
 eza
 ffmpeg
+fwupd
 fzf
 git
 git-delta
@@ -60,11 +62,14 @@ solaar
 sudo
 sway
 swayidle
+swaylock
 tailscale
 tmux
 ttf-dejavu
+ttf-jetbrains-mono-nerd
 ttf-liberation
 unzip
+udisks2
 usbutils
 uv
 vivaldi

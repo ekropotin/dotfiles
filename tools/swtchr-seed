@@ -1,0 +1,19 @@
+#!/bin/bash
+# Seed swtchrd's window queue by briefly focusing every existing window,
+# then restoring the original focus. swtchrd only learns about windows
+# from live focus events, so on daemon restart its stack is empty until
+# you manually switch around. This forces it to observe each window once.
+
+set -e
+
+original=$(swaymsg -t get_tree | jq '.. | objects | select(.focused? == true) | .id' | head -1)
+[ -z "$original" ] && exit 0
+
+mapfile -t ids < <(swaymsg -t get_tree | jq '.. | objects | select(.pid? != null and .app_id? != null or .window? != null) | .id')
+
+for id in "${ids[@]}"; do
+    [ "$id" = "$original" ] && continue
+    swaymsg "[con_id=$id] focus" >/dev/null
+done
+
+swaymsg "[con_id=$original] focus" >/dev/null

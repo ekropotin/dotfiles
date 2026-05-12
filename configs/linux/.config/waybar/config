@@ -96,6 +96,7 @@
     "memory": {
         "format": "󰍛 {percentage}%",
         "interval": 2,
+        "on-click": "kitty htop",
         "states": {
             "critical": 80
         },

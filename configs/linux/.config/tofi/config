@@ -1,16 +1,38 @@
-# Catppuccin Mocha
-text-color = #cdd6f4
-prompt-color = #f38ba8
-selection-color = #f9e2af
-background-color = #1e1e2e
+# Catppuccin Mocha — centered floating panel
 
-width = 100%
-height = 100%
-border-width = 0
-outline-width = 0
-padding-left = 35%
-padding-top = 35%
-result-spacing = 25
-num-results = 5
-font = monospace
-background-color = #000A
+# Palette
+text-color           = #cdd6f4
+prompt-color         = #cba6f7
+placeholder-color    = #6c7086
+input-color          = #cdd6f4
+default-result-color = #a6adc8
+selection-color      = #f9e2af
+selection-background = #313244
+background-color     = #1e1e2eF2
+
+# Layout
+anchor          = center
+width           = 600
+height          = 340
+border-width    = 2
+border-color    = #cba6f7
+outline-width   = 0
+corner-radius   = 14
+padding-left    = 20
+padding-right   = 20
+padding-top     = 18
+padding-bottom  = 18
+
+# Prompt & input
+font            = JetBrainsMono Nerd Font
+font-size       = 14
+prompt-text     = "󰍉  "
+prompt-padding  = 12
+
+# Results
+result-spacing       = 6
+num-results          = 0
+selection-padding    = 8
+selection-match-color = #f38ba8
+horizontal           = false
+hide-cursor          = false

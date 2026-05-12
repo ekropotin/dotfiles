@@ -1,0 +1,17 @@
+/* Hide the window title label entirely — overlay shows only icons.
+ *
+ * Why: swtchr's overlay resizes horizontally to fit the longest title as you
+ * cycle through windows, which is jarring. The proper fix would be to
+ * ellipsize long titles, but the label is built in swtchr's Rust source
+ * (overlay.rs) without an ellipsize property, and GTK CSS has no max-width
+ * or text-overflow. So the only config-only way to stop the resize is to
+ * remove the title from the layout entirely.
+ *
+ * GTK CSS has no `display: none`, hence the zero font-size + zero spacing.
+ */
+#window-title {
+  font-size: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+}
