@@ -1,0 +1,12 @@
+# Keep the internal BT controller (Foxconn/Hon Hai 0489:e0d0) awake.
+#
+# With USB autosuspend enabled (control=auto, 2s idle delay), the kernel
+# suspends the BT USB interface between events. Brief BLE advertisements
+# from peripherals like the Logitech LIFT (which only advertises when
+# touched) then race with the resume path and are easily dropped — the
+# host never sees the ad, so no reconnect happens.
+#
+# Forcing power/control=on disables runtime suspend for this device only.
+# Other USB devices keep their autosuspend behavior.
+
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e0d0", TEST=="power/control", ATTR{power/control}="on"

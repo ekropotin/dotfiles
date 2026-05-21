@@ -1,0 +1,57 @@
+#!/bin/bash
+# Move every non-empty sway workspace to the named output, skipping any
+# workspace that's already there. Intended for kanshi `exec` hooks:
+#
+#     profile docked {
+#         output eDP-1 enable scale 1
+#         output DP-4  enable scale 2 position 0,0
+#         exec ~/.local/bin/for_each_workspace_to DP-4
+#     }
+#
+# Idempotence is mandatory here. Issuing `move workspace to output` (or any
+# `output ...` IPC command) for state that's already correct still causes
+# sway to emit an `output` event, which can feed any IPC subscriber loop
+# (and triggers a wlroots seat-pointer-state desync that drops pointer
+# `release` events while a button is held — see
+# https://github.com/swaywm/wlroots/issues/1593 and the local
+# investigation notes in wlroots-pointer-desync-investigation.md).
+#
+# Exit codes:
+#   0  success (including no-op)
+#   1  bad usage / target missing / target not active
+
+set -eu
+
+usage() {
+    echo "usage: $(basename "$0") <output-name>" >&2
+    exit 1
+}
+
+[ $# -eq 1 ] || usage
+target=$1
+
+command -v swaymsg >/dev/null || { echo "swaymsg not found" >&2; exit 1; }
+command -v jq      >/dev/null || { echo "jq not found"      >&2; exit 1; }
+
+# Verify the target output is active (a disabled output stays in get_outputs
+# but won't actually accept workspace moves usefully).
+active=$(swaymsg -t get_outputs -r \
+    | jq -r --arg n "$target" '.[] | select(.name == $n) | .active')
+case "$active" in
+    true)  ;;
+    false) echo "$target is not active; refusing to move workspaces" >&2; exit 1 ;;
+    "")    echo "$target not found in get_outputs"                   >&2; exit 1 ;;
+    *)     echo "unexpected .active value: $active"                  >&2; exit 1 ;;
+esac
+
+# Move only non-empty workspaces not already on $target.
+# `.representation` is non-null for any workspace with a layout; empty
+# workspaces have a null representation. Empty ones are sway-managed and
+# moving them just provokes sway to re-create one on the source output.
+swaymsg -t get_workspaces -r \
+    | jq -r --arg t "$target" \
+        '.[] | select(.output != $t and (.representation // "") != "") | .name' \
+    | while IFS= read -r ws; do
+        # `|| true` so a single failed move doesn't abort the rest under set -e
+        swaymsg "[workspace=\"$ws\"]" move workspace to output "$target" >/dev/null || true
+    done

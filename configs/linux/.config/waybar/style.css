@@ -106,6 +106,7 @@
 #battery,
 #memory,
 #cpu,
+#custom-airpods,
 #pulseaudio {
     background-color: #1e1e2e;
     padding: 0.3rem 0.7rem;
@@ -119,6 +120,7 @@
 #battery:hover,
 #memory:hover,
 #cpu:hover,
+#custom-airpods:hover,
 #pulseaudio:hover {
     background-color: #313244;
 }
@@ -186,6 +188,19 @@
 
 #cpu.critical {
     color: #f38ba8;
+}
+
+#custom-airpods.connected {
+    color: #a6e3a1;
+}
+
+#custom-airpods.disconnected {
+    color: #a6adc8;
+}
+
+#custom-airpods.busy {
+    color: #f9e2af;
+    animation: blink 1s step-end infinite;
 }
 
 #pulseaudio {

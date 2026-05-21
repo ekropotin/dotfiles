@@ -1,0 +1,19 @@
+# Kanshi profiles for output management.
+#
+# `docked` disables the built-in panel so sway evacuates every workspace
+# (including app-assigned ones like obsidian on ws2) to the external on
+# its own — no manual `move workspace` script needed.
+#
+# Outputs are matched by `make model serial` identifiers rather than DRM
+# connector names (eDP-1, DP-4, …). DRM connector numbers are not stable
+# across hot-plug: the LG comes back as DP-4 one boot and DP-5 the next,
+# which silently breaks any connector-name profile match.
+
+profile undocked {
+    output "Lenovo Group Limited 0x40A9 Unknown" enable scale 1 position 0,0
+}
+
+profile docked {
+    output "Lenovo Group Limited 0x40A9 Unknown" disable
+    output "LG Electronics LG Ultra HD 0x00010659" enable mode 3840x2160@60Hz scale 2 position 0,0
+}

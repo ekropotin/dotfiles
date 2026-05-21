@@ -156,7 +156,7 @@ exec systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY DISPLAY
 exec_always ~/.config/sway/scripts/refresh-tmux-env.sh
 
 
-exec ~/.config/sway/scripts/outputs.sh
+exec kanshi
 exec swayidle -w \
     timeout 300 'swaylock -f' \
     timeout 360 "$HOME/.config/sway/scripts/idle-suspend.sh" \

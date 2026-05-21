@@ -25,6 +25,7 @@
         "battery",
         "memory",
         "cpu",
+        "custom/airpods",
         "pulseaudio"
     ],
 
@@ -100,6 +101,15 @@
         "states": {
             "critical": 80
         },
+        "tooltip": false
+    },
+
+    "custom/airpods": {
+        "exec": "~/.config/waybar/scripts/airpods.sh",
+        "on-click": "~/.config/waybar/scripts/airpods.sh toggle",
+        "return-type": "json",
+        "interval": 10,
+        "signal": 8,
         "tooltip": false
     },
 

@@ -150,6 +150,67 @@ setup_keyd() {
     echo -e "${GREEN}keyd service enabled and reloaded${NC}"
 }
 
+# Symlink bluetooth main.conf + udev rule that disables autosuspend on the
+# internal BT controller (Linux only). See the file headers for rationale.
+setup_bluetooth() {
+    local bt_source="$CONFIGS_DIR/linux/etc/bluetooth/main.conf"
+    local bt_target="/etc/bluetooth/main.conf"
+    local udev_source="$CONFIGS_DIR/linux/etc/udev/rules.d/50-bluetooth-no-autosuspend.rules"
+    local udev_target="/etc/udev/rules.d/50-bluetooth-no-autosuspend.rules"
+    local resume_script_source="$CONFIGS_DIR/linux/etc/bluetooth/resume-reconnect.sh"
+    local resume_script_target="/etc/bluetooth/resume-reconnect.sh"
+    local resume_unit_source="$CONFIGS_DIR/linux/etc/systemd/system/bt-resume-reconnect.service"
+    local resume_unit_target="/etc/systemd/system/bt-resume-reconnect.service"
+
+    if [[ ! -f "$bt_source" || ! -f "$udev_source" ]]; then
+        return
+    fi
+
+    if ! command -v bluetoothctl >/dev/null 2>&1; then
+        echo -e "${YELLOW}bluez not installed, skipping bluetooth setup${NC}"
+        return
+    fi
+
+    echo -e "\n${BLUE}Setting up bluetooth config (requires sudo)...${NC}"
+
+    sudo mkdir -p /etc/bluetooth /etc/udev/rules.d
+
+    # bluetooth main.conf must be a real file: bluetoothd's systemd unit
+    # sets ProtectHome=true, so a symlink into ~/sources/dotfiles is
+    # unreadable to the daemon ("Permission denied" on load_config).
+    if [[ -e "$bt_target" && ! -L "$bt_target" ]]; then
+        sudo mv "$bt_target" "$bt_target.backup_$(date +%Y%m%d_%H%M%S)"
+        echo -e "${YELLOW}Backed up existing $bt_target${NC}"
+    elif [[ -L "$bt_target" ]]; then
+        sudo rm "$bt_target"
+    fi
+    sudo install -m 644 -o root -g root "$bt_source" "$bt_target"
+    echo -e "${GREEN}Installed $bt_target from $bt_source${NC}"
+
+    # udev rule is symlinked: udev has no ProtectHome sandbox.
+    if [[ -e "$udev_target" && ! -L "$udev_target" ]]; then
+        sudo mv "$udev_target" "$udev_target.backup_$(date +%Y%m%d_%H%M%S)"
+        echo -e "${YELLOW}Backed up existing $udev_target${NC}"
+    fi
+    sudo ln -sf "$udev_source" "$udev_target"
+    echo -e "${GREEN}Linked $udev_target -> $udev_source${NC}"
+
+    sudo udevadm control --reload
+    # Re-apply rules to the live BT device so power/control flips without a reboot.
+    sudo udevadm trigger --action=add --attr-match=idVendor=0489 --attr-match=idProduct=e0d0
+    sudo systemctl restart bluetooth
+    echo -e "${GREEN}bluetooth service restarted with new config${NC}"
+
+    # Resume hook: after a long suspend, run a discovery window so bonded BLE
+    # devices (LIFT mouse) re-attach on the first click. Installed as real
+    # files (systemd units / scripts run cleanest without symlinks into $HOME).
+    sudo install -m 755 -o root -g root "$resume_script_source" "$resume_script_target"
+    sudo install -m 644 -o root -g root "$resume_unit_source" "$resume_unit_target"
+    sudo systemctl daemon-reload
+    sudo systemctl enable bt-resume-reconnect.service
+    echo -e "${GREEN}bt-resume-reconnect.service installed and enabled${NC}"
+}
+
 # Main execution
 main() {
     echo -e "${GREEN}Starting dotfiles setup...${NC}"
@@ -178,6 +239,7 @@ main() {
 
         if [[ "$PLATFORM" == "linux" ]]; then
             setup_keyd
+            setup_bluetooth
         fi
     fi
     

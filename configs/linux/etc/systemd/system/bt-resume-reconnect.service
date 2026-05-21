@@ -1,0 +1,15 @@
+[Unit]
+Description=Re-attach bonded Bluetooth devices after resume
+# Ordering After= the sleep targets makes this run on resume (the canonical
+# Arch "sleep hook" pattern), not on the way into suspend.
+After=suspend.target hibernate.target suspend-then-hibernate.target hybrid-sleep.target bluetooth.service
+Wants=bluetooth.service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/bluetooth/resume-reconnect.sh
+# Script retries connect for ~120s; give systemd headroom beyond that.
+TimeoutStartSec=150
+
+[Install]
+WantedBy=suspend.target hibernate.target suspend-then-hibernate.target hybrid-sleep.target
