@@ -156,4 +156,6 @@ require("lazy").setup({
         end,
     },
     { "ChmaraX/herdr-nvim", opts = {} },
-}, {})
+}, {
+    rocks = { enabled = false },
+})
