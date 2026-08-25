@@ -236,3 +236,5 @@ eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 export PATH="$HOME/.local/bin:$PATH"
 eval "$(mise activate zsh)"
+
+. "$HOME/.cargo/env"

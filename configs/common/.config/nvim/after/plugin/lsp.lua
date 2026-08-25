@@ -5,7 +5,6 @@ local mason_lspconfig = require("mason-lspconfig")
 require("mason").setup()
 -- Default fallback
 for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-    print(server_name)
     vim.lsp.config(server_name, {
         on_attach = lsp.on_attach,
         capabilities = lsp.capabilities,
@@ -62,21 +61,6 @@ rt.setup({
     },
 })
 
--- setup Quickmark manually for the time being
-
-local lspconfig = require("lspconfig")
-local configs = require("lspconfig.configs")
-
--- if not configs.quickmark then
---     configs.quickmark = {
---         default_config = {
---             -- quickmark-server should be in the PATH
---             cmd = { "quickmark-server" },
---             filetypes = { "markdown" },
---             root_dir = lspconfig.util.root_pattern("quickmark.toml", ".git"),
---             settings = {},
---             single_file_support = true,
---         },
---     }
--- end
-lspconfig.quickmark.setup({})
+-- setup Quickmark manually since it isn't managed by mason
+-- (config is defined in after/lsp/quickmark.lua)
+vim.lsp.enable("quickmark")

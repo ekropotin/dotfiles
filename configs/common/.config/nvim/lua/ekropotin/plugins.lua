@@ -3,8 +3,6 @@ require("lazy").setup({
     "ThePrimeagen/harpoon",
     -- Theme
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    -- Tmux integration
-    { "christoomey/vim-tmux-navigator" },
     -- Git stuff
     "lewis6991/gitsigns.nvim",
     "tpope/vim-fugitive",
@@ -130,32 +128,13 @@ require("lazy").setup({
         dependencies = { { "echasnovski/mini.icons", opts = {} } },
     },
     {
-        "yetone/avante.nvim",
-        event = "VeryLazy",
-        build = "make",
-        dependencies = {
-            "stevearc/dressing.nvim",
-            "MunifTanjim/nui.nvim",
-            "zbirenbaum/copilot.lua",
-            {
-                "HakonHarnes/img-clip.nvim",
-                event = "VeryLazy",
-                opts = {
-                    -- recommended settings
-                    default = {
-                        embed_image_as_base64 = false,
-                        prompt_for_file_name = false,
-                        drag_and_drop = {
-                            insert_mode = true,
-                        },
-                    },
-                },
-            },
-        },
-    },
-    {
         "luckasRanarison/tailwind-tools.nvim",
-        opts = {},
+        opts = {
+            -- tailwindcss LSP is already configured via mason-lspconfig/vim.lsp.config
+            -- (see after/lsp/tailwindcss.lua); avoid tailwind-tools' own setup, which
+            -- still goes through the deprecated require("lspconfig") framework.
+            server = { override = false },
+        },
     },
     {
         "jay-babu/mason-nvim-dap.nvim",
@@ -171,11 +150,13 @@ require("lazy").setup({
             "nvimtools/none-ls.nvim",
         },
     },
-    {
-        "greggh/claude-code.nvim",
-        requires = {
-            "nvim-lua/plenary.nvim", -- Required for git operations
-        },
-    },
     "unblevable/quick-scope",
+    {
+        "aimdevlee/herdr-nvim-nav",
+        dependencies = { "christoomey/vim-tmux-navigator" }, -- omit if with_tmux = false
+        config = function()
+            require("herdr-nvim-nav").setup()
+        end,
+    },
+    { "ChmaraX/herdr-nvim", opts = {} },
 }, {})
