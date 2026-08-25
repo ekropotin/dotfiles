@@ -102,13 +102,10 @@ require("lazy").setup({
         ft = "python",
     },
     -- Rust stuff
-    "simrat39/rust-tools.nvim",
-    -- Show full call hierarchy
     {
-        "ldelossa/litee-calltree.nvim",
-        dependencies = {
-            "ldelossa/litee.nvim",
-        },
+        "mrcjkb/rustaceanvim",
+        version = "^9",
+        lazy = false,
     },
     {
         "epwalsh/obsidian.nvim",
