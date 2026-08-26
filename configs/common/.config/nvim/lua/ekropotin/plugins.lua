@@ -77,8 +77,14 @@ require("lazy").setup({
     {
         -- Highlight, edit, and navigate code
         "nvim-treesitter/nvim-treesitter",
+        -- upstream renamed its default branch master -> main; the old
+        -- "master" is a frozen mirror incompatible with newer nvim releases
+        branch = "main",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                branch = "main",
+            },
         },
         build = ":TSUpdate",
     },
