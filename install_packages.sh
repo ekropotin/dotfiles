@@ -2,31 +2,6 @@
 
 set -e
 
-echo "linking tools to /usr/local/bin"
-if [[ ! -e /usr/local/bin/tms ]]; then
-    sudo ln -s $PWD/tools/tms /usr/local/bin
-    echo "linked tms"
-else
-    echo "tms already linked"
-fi
-
-if [[ ! -e /usr/local/bin/cht ]]; then
-    sudo ln -s $PWD/tools/cht /usr/local/bin
-    echo "linked cht"
-else
-    echo "cht already linked"
-fi
-
-
-echo "installing tmux plugin manager"
-if [[ ! -d "$HOME/.config/tmux/plugins/tpm" ]]; then
-    git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
-    echo "tmux plugin manager installed"
-else
-    echo "tmux plugin manager already installed"
-fi
-
-
 # Detect OS and install appropriate package manager
 OS=$(uname -s)
 
@@ -73,11 +48,6 @@ if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &>
     fi
     echo "Installing yay packages"
     yay -S --needed - < aurlist.txt
-
-    echo "Configuring greetd"
-    sudo mkdir -p /etc/greetd
-    sudo cp "$OLDPWD/configs/linux/etc/greetd/config.toml" /etc/greetd/config.toml
-    sudo systemctl enable greetd
 fi
 
 echo "setting zsh as default shell"

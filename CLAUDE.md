@@ -19,7 +19,7 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 - `configs/` - Dotfiles organized by platform:
   - `common/` - Cross-platform configs (zsh, p10k, neovim, tmux, kitty, bat, jj, ideavimrc)
   - `mac/` - macOS-specific configs (yabai, skhd)
-  - `linux/` - Linux-specific configs (sway, waybar, tofi)
+  - `linux/` - Linux-specific configs (keyd; the desktop itself is Omarchy/Hyprland, managed outside this repo)
 - `packages/` - Package lists: `Brewfile` (macOS), `pkglist.txt` + `aurlist.txt` (Arch)
 - `editors/` - VSCode/Cursor shared settings, keybindings, and extensions list
 - `tools/` - Custom shell scripts symlinked to `/usr/local/bin`:

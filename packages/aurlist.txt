@@ -1,5 +1,1 @@
-swayr
-tmux-plugin-manager
-tofi
 ttf-meslo-nerd-font-powerlevel10k
-xremap-gnome-bin
