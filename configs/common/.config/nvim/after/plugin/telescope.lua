@@ -40,6 +40,13 @@ vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 telescope.setup({
     defaults = {
         file_ignore_patterns = { "^.git/" },
+        -- telescope's previewer still targets the old nvim-treesitter API
+        -- (nvim-treesitter.parsers.ft_to_lang), which no longer exists after
+        -- moving to the "main" branch rewrite. Fall back to regex/syntax
+        -- highlighting in previews until telescope updates.
+        preview = {
+            treesitter = false,
+        },
         mappings = {
             i = {
                 ["<C-u>"] = false,
