@@ -109,6 +109,17 @@ zstyle ':omz:plugins:eza' 'icons' yes
 
 source $ZSH/oh-my-zsh.sh
 
+# Prefer omz's plugin-generated completions over Homebrew's. Both ship a
+# `_<tool>` for jj/gh/mise/etc, and fpath order silently decides the winner.
+# Homebrew generates its copies at install time, so clap-based ones embed an
+# absolute Cellar path (.../Cellar/jj/<version>/bin/jj) that dies on
+# `brew upgrade` and then fails silently in already-running shells, since a
+# loaded compdef function is never re-read. The omz plugins regenerate at
+# startup from $PATH, so their copies survive upgrades. Safe after compinit:
+# it records only the function name, and fpath decides which file that name
+# loads from at first completion.
+fpath=("$ZSH_CACHE_DIR/completions" ${fpath:#$ZSH_CACHE_DIR/completions})
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
