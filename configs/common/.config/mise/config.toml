@@ -1,0 +1,12 @@
+# Global runtime versions. mise replaces SDKMAN (java) and nvm (node).
+# Override per project with `mise use <tool>@<version>`, which writes a local mise.toml.
+
+[tools]
+java = "temurin-21"
+node = "24"
+python = "3.12"
+gradle = "7.6.1"
+
+[settings]
+# Respect .nvmrc / .node-version in projects that predate mise.
+idiomatic_version_file_enable_tools = ["node"]

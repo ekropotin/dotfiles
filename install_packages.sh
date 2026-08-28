@@ -16,6 +16,9 @@ if [[ "$OS" == "Darwin" ]]; then
     else
         echo "Homebrew already installed"
     fi
+    echo "Installing essential packages"
+    xargs brew install < essentials.txt
+
     echo "Installing brew packages"
     brew bundle
 fi
@@ -27,6 +30,9 @@ if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &>
     echo "Updating package database"
     sudo pacman -Syy
     sudo pacman -S python-filelock
+
+    echo "Installing essential packages"
+    sudo pacman -S --needed - < essentials.txt
 
     echo "Installing official packages"
     sudo pacman -S --needed - < pkglist.txt

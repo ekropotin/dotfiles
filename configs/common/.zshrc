@@ -78,20 +78,35 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
     git
     git-prompt
+    gh
     vscode
     kubectl
     fzf
     kube-ps1
+    k9s
     python
     gradle
+    npm
+    mise
+    uv
+    zoxide
+    gcloud
     tmux
     docker
     brew
     rust
     docker-compose
+    podman
     terraform
     jj
+    kitty
+    tldr
+    eza
 )
+
+# Must be set before oh-my-zsh.sh: the eza plugin reads these at load time.
+zstyle ':omz:plugins:eza' 'icons' yes
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -126,6 +141,10 @@ function mcd() {
 }
 
 #K8s stuff
+# Note: the oh-my-zsh "kubectx" plugin is not a substitute for these. It only
+# defines kubectx_prompt_info for hand-built PROMPTs (inert under p10k) and
+# never calls the kubectx/kubens binaries. Prod-context coloring lives in
+# POWERLEVEL9K_KUBECONTEXT_CLASSES in .p10k.zsh instead.
 alias kctx="kubectx"
 alias kns="kubens"
 alias ar="kubectl argo rollouts"
@@ -179,9 +198,9 @@ _fzf_comprun() {
 # ---- bat (better cat) -----
 alias cat='bat'
 # ---- Eza (better ls) -----
-alias ls="eza --icons=always"
+# ls/ll/la/lS/lT come from the oh-my-zsh eza plugin
 # ---- Zoxide (better cd) ----
-eval "$(zoxide init zsh)"
+# init comes from the oh-my-zsh zoxide plugin
 alias cd="z"
 
 # Local overrides
@@ -202,39 +221,7 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-# Init gcloud - platform independent
-if command -v brew &>/dev/null; then
-  # macOS with Homebrew
-  source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-  source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
-elif [ -f "/usr/share/google-cloud-sdk/path.zsh.inc" ]; then
-  # Linux standard location
-  source "/usr/share/google-cloud-sdk/path.zsh.inc"
-  source "/usr/share/google-cloud-sdk/completion.zsh.inc"
-elif [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then
-  # Manual installation in home directory
-  source "$HOME/google-cloud-sdk/path.zsh.inc"
-  source "$HOME/google-cloud-sdk/completion.zsh.inc"
-fi
-
-# Init SDKMan
-if command -v brew &>/dev/null; then
-  # macOS with Homebrew
-  export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
-  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-elif [ -d "$HOME/.sdkman" ]; then
-  # Standard SDKMAN installation location
-  export SDKMAN_DIR="$HOME/.sdkman"
-  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-fi
-eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
+# gcloud, uv/uvx completions and mise activation come from their oh-my-zsh plugins
 export PATH="$HOME/.local/bin:$PATH"
-eval "$(mise activate zsh)"
 
 . "$HOME/.cargo/env"
