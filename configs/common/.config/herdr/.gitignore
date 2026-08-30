@@ -1,0 +1,8 @@
+# runtime state written by herdr into its config dir
+/plugins
+/plugins.json
+/.plugins.lock
+/session.json
+*.log
+*.sock
+*.bak

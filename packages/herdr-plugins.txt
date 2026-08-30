@@ -1,0 +1,13 @@
+# Herdr plugins, bootstrapped by install_packages.sh via `herdr plugin install`.
+# One `owner/repo` per line; append `@ref` to pin a branch, tag, or commit.
+# The nvim halves of these plugins are managed by lazy.nvim
+# (configs/common/.config/nvim/lua/ekropotin/plugins.lua).
+
+# Full-height nvim sidebar with agent annotations
+ChmaraX/herdr-nvim
+
+# Auto-name tabs after the foreground program, number-prefix workspaces/tabs
+qu8n/herdr-automatic-rename
+
+# Ctrl+h/j/k/l across herdr panes and nvim splits
+aimdevlee/herdr-nvim-nav

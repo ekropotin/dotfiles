@@ -1,0 +1,67 @@
+onboarding = false
+[ui.toast]
+delivery = "system"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[keys]
+prefix = "ctrl+space"
+
+# pane navigation (vim-style)
+# focus_pane_left = ["prefix+h", "ctrl+h"]
+# focus_pane_down = ["prefix+j", "ctrl+j"]
+# focus_pane_up = ["prefix+k", "ctrl+k"]
+# focus_pane_right = ["prefix+l", "ctrl+l"]
+
+# worktrees (new_worktree stays on the default prefix+shift+g)
+open_worktree = "prefix+shift+o"
+remove_worktree = "prefix+shift+k"
+
+# tab switching
+# ctrl+tab/ctrl+shift+tab are often claimed by the terminal emulator for its own
+# native tab switching (e.g. kitty's default next_tab/previous_tab). If these
+# don't reach herdr, unmap them in the terminal emulator config first
+# (kitty: `map ctrl+tab no_op` / `map ctrl+shift+tab no_op` in kitty.conf).
+previous_tab = ["prefix+left", "ctrl+shift+tab"]
+next_tab = ["prefix+right", "ctrl+tab"]
+
+# project picker (herdr port of tms)
+[[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "/Users/ekropotin/.local/bin/hms"
+width = "80%"
+height = "60%"
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "herdr-nvim-nav.left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "herdr-nvim-nav.down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "herdr-nvim-nav.up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "herdr-nvim-nav.right"
+
+[[keys.command]]
+key = "prefix+e"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.toggle"
+description = "nvim sidebar"
+
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.pick-file"
+description = "open file from agent output"

@@ -1,1 +1,3 @@
-keyd
+# Arch-only official (pacman) packages.
+# Cross-platform packages belong in essentials.txt; AUR packages in aurlist.txt.
+# Empty for now — install_packages.sh skips this list when it has no entries.

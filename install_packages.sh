@@ -4,6 +4,7 @@ set -e
 
 # Detect OS and install appropriate package manager
 OS=$(uname -s)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd packages
 
@@ -35,7 +36,12 @@ if [[ "$OS" == "Linux" ]] && ([[ -f /etc/arch-release ]] || command -v pacman &>
     sudo pacman -S --needed - < essentials.txt
 
     echo "Installing official packages"
-    sudo pacman -S --needed - < pkglist.txt
+    official_pkgs="$(grep -vE '^[[:space:]]*(#|$)' pkglist.txt || true)"
+    if [[ -n "$official_pkgs" ]]; then
+        sudo pacman -S --needed - <<< "$official_pkgs"
+    else
+        echo "No Arch-only official packages listed, skipping"
+    fi
 
     echo "Installing yay"
     if ! command -v yay &> /dev/null; then
@@ -73,6 +79,32 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; the
     echo "powerlevel10k installed"
 else
     echo "powerlevel10k already installed"
+fi
+
+echo "installing herdr plugins"
+if ! command -v herdr &> /dev/null; then
+    echo "herdr not installed, skipping herdr plugins"
+else
+    installed_plugins="$(herdr plugin list 2>/dev/null || true)"
+    while read -r spec _rest; do
+        [[ -z "$spec" || "$spec" == \#* ]] && continue
+
+        repo="${spec%%@*}"
+        ref=""
+        [[ "$spec" == *@* ]] && ref="${spec#*@}"
+
+        if grep -qi "github:$repo@" <<< "$installed_plugins"; then
+            echo "$repo already installed"
+            continue
+        fi
+
+        # A single unavailable plugin repo shouldn't abort the whole bootstrap
+        if [[ -n "$ref" ]]; then
+            herdr plugin install "$repo" --ref "$ref" -y || echo "failed to install $repo"
+        else
+            herdr plugin install "$repo" -y || echo "failed to install $repo"
+        fi
+    done < "$SCRIPT_DIR/packages/herdr-plugins.txt"
 fi
 
 echo "rebuilding bat cache"
