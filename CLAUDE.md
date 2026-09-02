@@ -17,7 +17,7 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 ## Repository Structure
 
 - `configs/` - Dotfiles organized by platform:
-  - `common/` - Cross-platform configs (zsh, p10k, neovim, tmux, kitty, bat, jj, mise, herdr, ideavimrc)
+  - `common/` - Cross-platform configs (zsh, p10k, neovim, tmux, kitty, bat, jj, herdr, ideavimrc)
   - `mac/` - macOS-specific configs (yabai, skhd)
   - `linux/` - Linux-specific configs (currently none; the desktop itself is Omarchy/Hyprland, managed outside this repo)
 - `packages/` - Package lists: `essentials.txt` (cross-platform), `Brewfile` (macOS), `pkglist.txt` + `aurlist.txt` (Arch), `herdr-plugins.txt` (herdr plugins)
