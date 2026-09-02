@@ -232,6 +232,23 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Recover the keyboard after a TUI dies without cleaning up. kitty speaks the
+# kitty keyboard protocol, which nvim and herdr enable on start and disable on
+# exit; a pane that is killed or crashes never disables it, so every later shell
+# keeps receiving the enhanced encodings. zle has no binding for those forms and
+# inserts them as literal text -- with NumLock on, Up arrives as ^[[1;129A, so
+# arrows "type" escape codes instead of moving. Reset the protocol, plus
+# application cursor/keypad mode (the older form of the same breakage), before
+# each prompt. Terminals that don't know these sequences ignore them.
+autoload -Uz add-zsh-hook
+_reset_keyboard_modes() {
+  [[ -t 1 ]] || return
+  print -n '\e[<u'      # pop a leaked kitty-keyboard stack entry
+  print -n '\e[=0;1u'   # clear the flags on whatever entry is current now
+  print -n '\e[?1l\e>'  # normal cursor keys, numeric keypad
+}
+add-zsh-hook precmd _reset_keyboard_modes
+
 # gcloud, uv/uvx completions and mise activation come from their oh-my-zsh plugins
 export PATH="$HOME/.local/bin:$PATH"
 
