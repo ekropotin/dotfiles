@@ -53,7 +53,21 @@ require("lazy").setup({
     -- "gc" to comment visual regions/lines
     { "numToStr/Comment.nvim", opts = {} },
 
-    -- Fuzzy Finder (files, lsp, etc)
+    -- File finding and content grep. Rust core, frecency ranking; replaces the
+    -- telescope pickers that touch the filesystem. Everything else -- buffers,
+    -- help, diagnostics, resume, LSP -- stays on telescope below, since fff
+    -- deliberately has no pickers for those.
+    {
+        "dmtrKovalenko/fff",
+        -- downloads a prebuilt binary, falls back to `cargo build`
+        build = function()
+            require("fff.download").download_or_build_binary()
+        end,
+        -- the plugin lazy-initialises itself; keymaps live in after/plugin/fff.lua
+        lazy = false,
+    },
+
+    -- Fuzzy Finder (buffers, help, diagnostics, lsp)
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
