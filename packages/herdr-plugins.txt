@@ -11,3 +11,6 @@ qu8n/herdr-automatic-rename
 
 # Ctrl+h/j/k/l across herdr panes and nvim splits
 aimdevlee/herdr-nvim-nav
+
+# Session picker bound to prefix+t (herdr port of tms/sesh)
+fullerzz/herdr-plugin-sesh

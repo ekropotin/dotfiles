@@ -26,14 +26,6 @@ remove_worktree = "prefix+shift+k"
 previous_tab = ["prefix+left", "ctrl+shift+tab"]
 next_tab = ["prefix+right", "ctrl+tab"]
 
-# project picker (herdr port of tms)
-[[keys.command]]
-key = "prefix+t"
-type = "popup"
-command = "/Users/ekropotin/.local/bin/hms"
-width = "80%"
-height = "60%"
-
 [[keys.command]]
 key = "ctrl+h"
 type = "plugin_action"
@@ -65,3 +57,9 @@ key = "prefix+o"
 type = "plugin_action"
 command = "chmarax.herdr-nvim.pick-file"
 description = "open file from agent output"
+
+[[keys.command]]
+key = "prefix+t"
+type = "plugin_action"
+command = "fullerzz.sesh.open-picker"
+description = "open Sesh picker"

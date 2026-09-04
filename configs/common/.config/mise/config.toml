@@ -6,6 +6,8 @@ java = "temurin-21"
 node = "24"
 python = "3.12"
 gradle = "7.6.1"
+marp-cli = "latest"
+go = "latest"
 
 [settings]
 # Respect .nvmrc / .node-version in projects that predate mise.
