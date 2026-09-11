@@ -3,6 +3,7 @@
 /plugins.json
 /.plugins.lock
 /session.json
+/release-notes.json
 *.log
 *.sock
 *.bak

@@ -1,7 +1,15 @@
-# Scripting addition, needed for `space --focus` and `window --space`
-# (SIP is off on this machine). Re-load it if the Dock restarts.
-sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# No scripting addition here on purpose. Loading it means injecting into
+# Dock.app, which needs SIP partially disabled; this is a Jamf-managed work Mac
+# with SIP enabled, so the injection cannot happen. `sudo yabai --load-sa`
+# would also never authenticate, since yabai starts from a LaunchAgent with no
+# TTY and there is no NOPASSWD entry for it.
+#
+# Consequence: `space --focus`, `window --space` and `window --display` do not
+# work (the latter two fail silently, exit 0 and no movement). Desktop
+# switching is handled by macOS Mission Control instead, and
+# throw-to-display.sh replaces `window --display` by setting the window's frame
+# on the target display, which needs no injection. See docs/hotkeys.md. Keep
+# every command below inside what the public Accessibility API allows.
 
 yabai -m config auto_balance on
 

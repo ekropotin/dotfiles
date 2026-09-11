@@ -2,10 +2,18 @@
 # philosophy and full chord map: SUPER -> ctrl+alt, +shift -> +shift, and any
 # extra alt/ctrl -> +cmd.
 #
-# ctrl+alt+cmd+v (clipboard history) and ctrl+alt+` (push-to-talk) are
-# deliberately NOT bound here -- they must pass through to Alfred and Wispr
-# Flow, set as those apps' own global hotkeys. cmd+space is Alfred's own
-# hotkey too, not skhd's.
+# Division of labour: skhd binds yabai actions and nothing else. Anything
+# macOS can already do on its own -- switching desktops, screenshots -- is
+# configured in System Settings > Keyboard > Keyboard Shortcuts instead, and
+# anything an app owns (Alfred's clipboard history and quick actions, Wispr
+# Flow's push-to-talk) is set as that app's own global hotkey. Those chords
+# are deliberately absent here so they pass through. docs/hotkeys.md section 4
+# lists which chord lives where.
+#
+# Everything below runs through the public Accessibility API, so none of it
+# needs the scripting addition. See docs/hotkeys.md section 5 for the one
+# Omarchy flow that has no Mac counterpart as a result (send window to
+# workspace N), and for how throw-to-display.sh works around the other.
 
 # -- Layout --
 
@@ -15,8 +23,12 @@ ctrl + alt - m : ~/.config/yabai/toggle-layout.sh
 # rotate layout clockwise, mirrors Omarchy's SUPER+R
 ctrl + alt - r : yabai -m space --rotate 270
 
-# send window to/back from the other display, mirrors Omarchy's SUPER+D
-ctrl + alt - d : yabai -m window --display recent; yabai -m display --focus recent
+# -- Displays --
+
+# send window to the next display and tile it there, mirrors Omarchy's SUPER+D.
+# macOS's "Move left/right a space" must stay unbound from ctrl+alt - c/d for
+# this to reach skhd; see docs/hotkeys.md section 6.
+ctrl + alt - d : ~/.config/yabai/throw-to-display.sh
 
 # -- Focus --
 
@@ -25,32 +37,12 @@ ctrl + alt - j : yabai -m window --focus south
 ctrl + alt - k : yabai -m window --focus north
 ctrl + alt - l : yabai -m window --focus east
 
-# -- Workspaces --
+# -- Swap --
 
-ctrl + alt - 1 : yabai -m space --focus 1
-ctrl + alt - 2 : yabai -m space --focus 2
-ctrl + alt - 3 : yabai -m space --focus 3
-ctrl + alt - 4 : yabai -m space --focus 4
-ctrl + alt - 5 : yabai -m space --focus 5
-ctrl + alt - 6 : yabai -m space --focus 6
-ctrl + alt - 7 : yabai -m space --focus 7
-ctrl + alt - 8 : yabai -m space --focus 8
-ctrl + alt - 9 : yabai -m space --focus 9
-
-# send window to workspace N, following it there like Omarchy's SUPER+SHIFT+N
-ctrl + alt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1
-ctrl + alt + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2
-ctrl + alt + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3
-ctrl + alt + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4
-ctrl + alt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5
-ctrl + alt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6
-ctrl + alt + shift - 7 : yabai -m window --space 7; yabai -m space --focus 7
-ctrl + alt + shift - 8 : yabai -m window --space 8; yabai -m space --focus 8
-ctrl + alt + shift - 9 : yabai -m window --space 9; yabai -m space --focus 9
-
-# -- Screenshots ("I" for "image"), mirrors Omarchy's SUPER+I family --
-
-ctrl + alt - i : screencapture -i "$(defaults read com.apple.screencapture location 2>/dev/null || echo ~/Desktop)/screenshot-region-$(date +%Y-%m-%d_%H-%M-%S).png"
-ctrl + alt + cmd - i : screencapture -ic
-ctrl + alt + shift - i : screencapture "$(defaults read com.apple.screencapture location 2>/dev/null || echo ~/Desktop)/screenshot-fullscreen-$(date +%Y-%m-%d_%H-%M-%S).png"
-ctrl + alt + shift + cmd - i : screencapture -c
+# swap the focused window with its neighbour. Arrows rather than hjkl so that
+# "look over there" (hjkl) and "move the window over there" (arrows) stay
+# distinct on one hand. Tiling layouts only -- see docs/hotkeys.md section 5.
+ctrl + alt - left  : yabai -m window --swap west
+ctrl + alt - down  : yabai -m window --swap south
+ctrl + alt - up    : yabai -m window --swap north
+ctrl + alt - right : yabai -m window --swap east
