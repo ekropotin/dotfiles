@@ -170,9 +170,8 @@ require("lazy").setup({
     "unblevable/quick-scope",
     {
         "aimdevlee/herdr-nvim-nav",
-        dependencies = { "christoomey/vim-tmux-navigator" }, -- omit if with_tmux = false
         config = function()
-            require("herdr-nvim-nav").setup()
+            require("herdr-nvim-nav").setup({ with_tmux = false })
         end,
     },
     { "ChmaraX/herdr-nvim", opts = {} },

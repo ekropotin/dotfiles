@@ -1,3 +1,8 @@
+# Scripting addition, needed for `space --focus` and `window --space`
+# (SIP is off on this machine). Re-load it if the Dock restarts.
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
 yabai -m config auto_balance on
 
 # default layout (can be bsp, stack or float)

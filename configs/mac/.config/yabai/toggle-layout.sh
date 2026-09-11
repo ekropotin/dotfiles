@@ -4,9 +4,9 @@
 current_layout=$(yabai -m query --spaces --space | jq -r '.type')
 
 if [[ "$current_layout" == "bsp" ]]; then
-    yabai -m config layout stack
+    yabai -m space --layout stack
 elif [[ "$current_layout" == "stack" ]]; then
-    yabai -m config layout bsp
+    yabai -m space --layout bsp
 else
-    yabai -m config layout bsp
+    yabai -m space --layout bsp
 fi

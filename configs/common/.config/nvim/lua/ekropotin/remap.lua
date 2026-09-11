@@ -35,8 +35,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "[y]ank selection in the system clipboard" })
 -- current line only
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "[Y]ank current line in the system clipboard" })
--- Switch between projects
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "Switch session" })
 -- Disable arrows in non-insert mode
 vim.keymap.set({ "n", "v", "x" }, "<Up>", "<nop>")
 vim.keymap.set({ "n", "v", "x" }, "<Down>", "<nop>")

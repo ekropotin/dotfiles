@@ -1,54 +1,56 @@
-# change window focus within space
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - h : yabai -m window --focus west
-alt - l : yabai -m window --focus east
+# Cross-machine hotkey grammar. See docs/hotkeys.md in the repo root for the
+# philosophy and full chord map: SUPER -> ctrl+alt, +shift -> +shift, and any
+# extra alt/ctrl -> +cmd.
+#
+# ctrl+alt+cmd+v (clipboard history) and ctrl+alt+` (push-to-talk) are
+# deliberately NOT bound here -- they must pass through to Alfred and Wispr
+# Flow, set as those apps' own global hotkeys. cmd+space is Alfred's own
+# hotkey too, not skhd's.
 
-# alt + ` - focus Kitty window
-alt - 0x32 : sh -c 'window_id=$(yabai -m query --windows | jq -r --arg app "kitty" ".[] | select(.app == \$app) | .id" | head -n 1);yabai -m window --focus "$window_id"'
+# -- Layout --
 
-# -- Modifying the Layout --
+# monocle <-> dwindle (stack <-> bsp), mirrors Omarchy's SUPER+M
+ctrl + alt - m : ~/.config/yabai/toggle-layout.sh
 
-# rotate layout clockwise
-alt - r : yabai -m space --rotate 270
+# rotate layout clockwise, mirrors Omarchy's SUPER+R
+ctrl + alt - r : yabai -m space --rotate 270
 
-# flip along y-axis
-alt - y : yabai -m space --mirror y-axis
+# send window to/back from the other display, mirrors Omarchy's SUPER+D
+ctrl + alt - d : yabai -m window --display recent; yabai -m display --focus recent
 
-# flip along x-axis
-alt - x : yabai -m space --mirror x-axis
+# -- Focus --
 
-# toggle window float
-alt + shift - f : yabai -m window --toggle float --grid 10:10:1:1:8:8
+ctrl + alt - h : yabai -m window --focus west
+ctrl + alt - j : yabai -m window --focus south
+ctrl + alt - k : yabai -m window --focus north
+ctrl + alt - l : yabai -m window --focus east
 
-# -- Modifying Window Size --
+# -- Workspaces --
 
-# maximize a window
-alt - f : yabai -m window --toggle zoom-fullscreen
+ctrl + alt - 1 : yabai -m space --focus 1
+ctrl + alt - 2 : yabai -m space --focus 2
+ctrl + alt - 3 : yabai -m space --focus 3
+ctrl + alt - 4 : yabai -m space --focus 4
+ctrl + alt - 5 : yabai -m space --focus 5
+ctrl + alt - 6 : yabai -m space --focus 6
+ctrl + alt - 7 : yabai -m space --focus 7
+ctrl + alt - 8 : yabai -m space --focus 8
+ctrl + alt - 9 : yabai -m space --focus 9
 
-# balance out tree of windows (resize to occupy same area)
-alt - b : yabai -m space --balance
+# send window to workspace N, following it there like Omarchy's SUPER+SHIFT+N
+ctrl + alt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1
+ctrl + alt + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2
+ctrl + alt + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3
+ctrl + alt + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4
+ctrl + alt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5
+ctrl + alt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6
+ctrl + alt + shift - 7 : yabai -m window --space 7; yabai -m space --focus 7
+ctrl + alt + shift - 8 : yabai -m window --space 8; yabai -m space --focus 8
+ctrl + alt + shift - 9 : yabai -m window --space 9; yabai -m space --focus 9
 
-# -- Moving Windows Around --
+# -- Screenshots ("I" for "image"), mirrors Omarchy's SUPER+I family --
 
-# swap windows
-alt - down : yabai -m window --swap south
-alt - up : yabai -m window --swap north
-alt - left : yabai -m window --swap west
-alt - right : yabai -m window --swap east
-
-# move window to display
-alt - d : yabai -m window --display recent; yabai -m display --focus recent;
-
-# move window to prev and next space
-alt - p : yabai -m window --space prev;
-alt - n : yabai -m window --space next;
-# move window to space #
-alt + shift - 1 : yabai -m window --space 1;
-alt + shift - 2 : yabai -m window --space 2;
-alt + shift - 3 : yabai -m window --space 3;
-alt + shift - 4 : yabai -m window --space 4;
-alt + shift - 5 : yabai -m window --space 5;
-
-# change layout type
-alt - s : ~/.config/yabai/toggle-layout.sh
+ctrl + alt - i : screencapture -i "$(defaults read com.apple.screencapture location 2>/dev/null || echo ~/Desktop)/screenshot-region-$(date +%Y-%m-%d_%H-%M-%S).png"
+ctrl + alt + cmd - i : screencapture -ic
+ctrl + alt + shift - i : screencapture "$(defaults read com.apple.screencapture location 2>/dev/null || echo ~/Desktop)/screenshot-fullscreen-$(date +%Y-%m-%d_%H-%M-%S).png"
+ctrl + alt + shift + cmd - i : screencapture -c

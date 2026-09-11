@@ -9,7 +9,7 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 ## Setup Commands
 
 ```bash
-./install_packages.sh    # Install software (Homebrew on mac, pacman/yay on Arch), oh-my-zsh, tpm, powerlevel10k, herdr plugins
+./install_packages.sh    # Install software (Homebrew on mac, pacman/yay on Arch), oh-my-zsh, powerlevel10k, herdr plugins
 ./setup_dotfiles.sh      # Symlink config files from configs/ to $HOME
 ./editors/bootstrap-editors.sh  # Symlink VSCode/Cursor settings and install extensions
 ```
@@ -17,14 +17,14 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 ## Repository Structure
 
 - `configs/` - Dotfiles organized by platform:
-  - `common/` - Cross-platform configs (zsh, p10k, neovim, tmux, kitty, bat, jj, herdr, ideavimrc)
+  - `common/` - Cross-platform configs (zsh, p10k, neovim, kitty, bat, jj, herdr, ideavimrc)
   - `mac/` - macOS-specific configs (yabai, skhd)
   - `linux/` - Linux-specific configs (currently none; the desktop itself is Omarchy/Hyprland, managed outside this repo)
 - `packages/` - Package lists: `essentials.txt` (cross-platform), `Brewfile` (macOS), `pkglist.txt` + `aurlist.txt` (Arch), `herdr-plugins.txt` (herdr plugins)
 - `editors/` - VSCode/Cursor shared settings, keybindings, and extensions list
 - `tools/` - Custom shell scripts symlinked to `/usr/local/bin`:
-  - `tms` - Fuzzy-find git repos under `~/sources` and open/switch tmux sessions
   - `cht` - Query cht.sh cheat sheets via fzf
+- `docs/hotkeys.md` - Cross-machine hotkey philosophy and the Omarchy ⇄ Mac chord map
 
 ## How Symlinks Work
 

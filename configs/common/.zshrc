@@ -91,7 +91,6 @@ plugins=(
     uv
     zoxide
     gcloud
-    tmux
     docker
     brew
     rust

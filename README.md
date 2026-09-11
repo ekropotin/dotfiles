@@ -23,6 +23,5 @@ cd dotfiles
 ./setup_dotfiles.sh
 ```
 
-After starting tmux session, don't forget to install tpm plugins by pressing `ctrl + shift + I`
-
-If you are using iTerm 2/3 as a terminal emulator, you need to enable `Applications in terminal may access clipboard` in it's settings in order to copy the content from Tmux into the system clipboard.
+See [`docs/hotkeys.md`](docs/hotkeys.md) for the cross-machine hotkey
+philosophy and the Omarchy ⇄ Mac chord map.
