@@ -19,7 +19,7 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 - `configs/` - Dotfiles organized by platform:
   - `common/` - Cross-platform configs (zsh, p10k, neovim, kitty, bat, jj, herdr, ideavimrc)
   - `mac/` - macOS-specific configs (yabai, skhd)
-  - `linux/` - Linux-specific configs (currently none; the desktop itself is Omarchy/Hyprland, managed outside this repo)
+  - `linux/` - Linux-specific configs. The desktop itself is Omarchy/Hyprland, managed outside this repo, except `hypr/bindings.lua` (see below)
 - `packages/` - Package lists: `essentials.txt` (cross-platform), `Brewfile` (macOS), `pkglist.txt` + `aurlist.txt` (Arch), `herdr-plugins.txt` (herdr plugins)
 - `editors/` - VSCode/Cursor shared settings, keybindings, and extensions list
 - `tools/` - Custom shell scripts symlinked to `/usr/local/bin`:
@@ -29,6 +29,8 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 ## How Symlinks Work
 
 `setup_dotfiles.sh` processes `configs/common/` first, then platform-specific configs (`configs/mac/` or `configs/linux/`). It symlinks dotfiles (files starting with `.`) to `$HOME` and directories under `.config/` to `$HOME/.config/`. Existing files are backed up before replacement.
+
+The script only symlinks whole `.config/<name>` directories, never individual files inside them, and `~/.config/hypr/` holds several Omarchy-managed files that aren't tracked here — so `configs/linux/.config/hypr/bindings.lua` is a manual exception, the same way `tools/` is: tracked in the repo, symlinked to `~/.config/hypr/bindings.lua` by hand rather than by the script.
 
 ## Neovim Config
 

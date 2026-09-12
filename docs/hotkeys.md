@@ -115,12 +115,14 @@ addition.
 | Focus hjkl | SUPER+HJKL | ⌃⌥HJKL | `yabai -m window --focus <dir>` |
 | Swap window with neighbour | SUPER + arrows † | ⌃⌥ + arrows | `yabai -m window --swap <dir>` — tiling layouts only |
 
-† The Mac half is live. The Omarchy half is four `o.rebind` entries in
-`bindings.lua` calling `hyprctl dispatch swapwindow l/d/u/r`, and is **not
-applied yet**. It *replaces* Omarchy's default `movefocus` on SUPER+arrows,
-which was redundant with SUPER+hjkl — so no `hl.unbind` is needed. Bare SUPER
-rather than SUPER+SHIFT mirrors the Mac, at the cost of the "+SHIFT acts on
-the thing" reading of §2.
+† Both halves are live. The Omarchy half is four `o.bind` entries in
+`bindings.lua` calling `hl.dsp.window.swap({ direction = ... })`, replacing
+the stock `movefocus` on SUPER+arrows, which duplicated SUPER+hjkl. Hyprland
+does not replace a bind on re-registration — it stacks both, so both fire —
+so the stock focus binds are unbound explicitly first; `hl.unbind` was
+needed after all. Bare SUPER rather than SUPER+SHIFT mirrors the Mac, at the
+cost of the "+SHIFT acts on the thing" reading of §2. SUPER+SHIFT+arrows
+keeps doing the same swap stock already bound there.
 
 ### macOS System Settings
 
@@ -242,8 +244,11 @@ machines.
 
 ## 6. Where things live
 
-- `~/.config/hypr/bindings.lua` plus `~/Work/omarchy-modifier-grammar.md`
-  (the Omarchy-specific override log)
+- `configs/linux/.config/hypr/bindings.lua`, symlinked by hand to
+  `~/.config/hypr/bindings.lua` (the setup script only symlinks whole
+  `.config/<name>` directories, and the rest of `~/.config/hypr/` isn't
+  tracked here — see `CLAUDE.md`), plus `~/Work/omarchy-modifier-grammar.md`
+  (the Omarchy-specific override log, still outside the repo)
 - `configs/mac/.config/skhd/skhdrc` and `configs/mac/.config/yabai/`
 - **Untracked, set by hand:** the Mission Control and Screenshots shortcuts
   in System Settings > Keyboard > Keyboard Shortcuts, and the Alfred and
