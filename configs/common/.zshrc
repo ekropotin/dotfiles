@@ -252,3 +252,5 @@ add-zsh-hook precmd _reset_keyboard_modes
 export PATH="$HOME/.local/bin:$PATH"
 
 . "$HOME/.cargo/env"
+
+alias cld='claude --allow-dangerously-skip-permissions'

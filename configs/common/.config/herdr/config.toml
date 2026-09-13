@@ -63,3 +63,15 @@ key = "prefix+t"
 type = "plugin_action"
 command = "fullerzz.sesh.open-picker"
 description = "open Sesh picker"
+
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "ekropotin.herdr-tuicr.review-paste"
+description = "tuicr review (paste)"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "ekropotin.herdr-tuicr.review-submit"
+description = "tuicr review (auto-submit)"

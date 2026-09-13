@@ -87,7 +87,17 @@ o.bind("SUPER + UP", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
 o.bind("SUPER + DOWN", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
 
 -- Re-homed from SUPER+J. R for "rotate".
-o.bind("SUPER + R", "Toggle window split", hl.dsp.layout("togglesplit"))
+-- "togglesplit" is a dwindle-only layoutmsg -- monocle doesn't recognize it
+-- and Hyprland surfaces that as an on-screen Lua runtime error ("Unknown
+-- monocle layoutmsg: togglesplit") rather than ignoring it. Same branch-on-
+-- layout guard as cycle_windows() below, so the chord is a no-op in monocle.
+o.bind("SUPER + R", "Toggle window split", function()
+  local ws = hl.get_active_workspace()
+  if ws and ws.tiled_layout == "monocle" then
+    return
+  end
+  hl.dispatch(hl.dsp.layout("togglesplit"))
+end)
 
 -- Re-homed from SUPER+L. M for "monocle"; toggles dwindle <-> monocle rather
 -- than Omarchy's stock dwindle <-> scrolling.

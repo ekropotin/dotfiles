@@ -240,7 +240,11 @@ machines.
   fallback and a Screen Recording permission question for skhd's children.
 - "Rotate" keeps the Mac's existing `--rotate 270` (whole tree). Omarchy's
   SUPER+R is `togglesplit` (parent split). They match for 2 windows but
-  differ with 3 or more.
+  differ with 3 or more. Unlike yabai's `--swap`, Hyprland's `togglesplit`
+  doesn't fail quietly outside its layout — dispatching it in `monocle`
+  surfaces an on-screen Lua runtime error ("Unknown monocle layoutmsg:
+  togglesplit") instead of no-op'ing, so the SUPER+R binding in
+  `bindings.lua` checks `tiled_layout` first and skips the dispatch there.
 
 ## 6. Where things live
 
