@@ -150,6 +150,28 @@ hl.unbind("SUPER + SHIFT + TAB") -- was: Previous workspace
 o.bind("SUPER + TAB", "OmaSwitch", "omarchy-shell shell summon piyush.omaswitch '{\"mode\":\"cycle\",\"direction\":1}'")
 o.bind("SUPER + SHIFT + TAB", "OmaSwitch (reverse)", "omarchy-shell shell summon piyush.omaswitch '{\"mode\":\"cycle\",\"direction\":-1}'")
 
+-- Commit the OmaSwitch selection when SUPER is released. The overlay only
+-- sees that release if it already holds keyboard focus, so a quick SUPER+TAB
+-- can release before it maps and leave it stuck open until ENTER.
+--   transparent:   SUPER+TAB would otherwise shadow this bind until SUPER is up
+--   ignore_mods:   still fires if SHIFT (from SUPER+SHIFT+TAB) is held
+--   non_consuming: apps keep receiving SUPER press/release as usual
+-- Only spawns the IPC call while the overlay is mapped, not on every SUPER.
+-- Workaround until Quickshell exposes held modifiers to QML:
+-- https://github.com/quickshell-mirror/quickshell/issues/1205
+local function omaswitch_commit()
+  for _, layer in ipairs(hl.get_layers()) do
+    if layer.namespace == "piyush-omaswitch" then
+      hl.exec_cmd("omarchy-shell shell call piyush.omaswitch commit ''")
+      return
+    end
+  end
+end
+for _, key in ipairs({ "SUPER_L", "SUPER_R" }) do
+  o.bind("SUPER + " .. key, nil, omaswitch_commit,
+    { release = true, transparent = true, ignore_mods = true, non_consuming = true })
+end
+
 -- ALT+TAB ends up unbound -- it used to run OmaSwitch, now moved to SUPER+TAB.
 hl.unbind("ALT + TAB")
 hl.unbind("ALT + SHIFT + TAB")
