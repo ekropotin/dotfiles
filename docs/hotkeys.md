@@ -75,7 +75,34 @@ SUPER+CTRL+S would both become ⌃⌥⌘S.
 into a virtual SUPER. That gives a true 1:1 grammar, but costs the Karabiner
 driver (a work MDM risk) plus a config to maintain.
 
-Bare ⌘ is the Mac app layer, roughly Omarchy's SUPER+C/V/X.
+Bare ⌘ is the Mac app layer, roughly Omarchy's SUPER+C/V/X — and SUPER+W,
+see below.
+
+### The app layer: SUPER as ⌘
+
+The physical key under your thumb is ⌘ on the Mac and SUPER on Omarchy, so
+reflexes typed on one land on the other. For the handful of chords the Mac
+spends on *apps* rather than windows, Omarchy doesn't fight that reflex: the
+compositor catches SUPER+key and forwards the app's Linux chord, CTRL+key.
+Stock does this for SUPER+C/V/X (copy/paste/cut); locally it extends to
+close:
+
+| Mac | Omarchy | Does |
+|---|---|---|
+| ⌘W | SUPER+W → forwards CTRL+W | Close tab/document |
+| ⌘Q | SUPER+Q | Close window (`hl.dsp.window.close()`) |
+
+Stock put *close window* on SUPER+W. That's the one chord where the Mac
+reflex is destructive rather than merely wrong — ⌘W to close a Zen tab
+killed the whole browser — so it's the one place the grammar bends toward
+the Mac instead of the other way round. Q is free in stock Omarchy, so
+close-window moves there, which is also exactly ⌘Q. No app config is
+involved: Zen, and anything else that reads CTRL+W as close-tab, gets it for
+free. The Mac side needs nothing either; both are native ⌘ chords, like ⌘Tab.
+
+The forward is `send_key_state` down, then up 50 ms later, copied from
+Omarchy's `send_shortcut_once` in `default/hypr/bindings/clipboard.lua`
+(plain `send_shortcut` can leave the synthetic key stuck repeating).
 
 **Literal exceptions:** ⌘Tab and ⌘Space keep their native meaning on the
 Mac — the Mac already has the same key doing the same job, so there's
@@ -159,6 +186,11 @@ they pass through.
 | Quick actions menu | SUPER+SPACE | ⌘Space (literal, like ⌘Tab) | Alfred |
 | Push-to-talk | SUPER+\` | ⌃⌥\` | Wispr Flow |
 | Window/app switcher | SUPER+Tab / +Shift → OmaSwitch | ⌘Tab (native) | macOS |
+| Close tab | SUPER+W → CTRL+W | ⌘W (native) | the app |
+| Close window | SUPER+Q | ⌘Q (native) ‡ | macOS / Hyprland |
+
+‡ Not quite twins: ⌘Q quits the whole app, SUPER+Q closes the focused
+window. For a single-window app like Zen they're the same thing.
 
 Alfred's two chords are verified against
 `Alfred.alfredpreferences/preferences/features/*/prefs.plist` — clipboard
@@ -221,6 +253,11 @@ machines.
   in a `stack` space it exits 1 with `could not locate a <dir>ward managed
   window` and nothing moves, which makes the chord harmless to press by
   reflex.
+- **SUPER+W means CTRL+W, and CTRL+W isn't close everywhere.** In a
+  terminal it's readline's delete-word, so SUPER+W in kitty eats a word
+  rather than closing anything — use SUPER+Q there. Apps with no CTRL+W
+  binding simply ignore it, so the chord is never *more* destructive than
+  stock; closing a window always takes the deliberate SUPER+Q.
 - **⌃⌥ shadows some JetBrains Mac-keymap chords, and the two layers differ
   in how recoverable that is.**
   - *System-level, unconditional:* ⌃⌥I (auto-indent lines) is now a macOS

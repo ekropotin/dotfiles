@@ -250,3 +250,33 @@ o.bind("SUPER + ALT + RETURN", "Herdr", { omarchy = "terminal-herdr" })
 hl.unbind("SUPER + ALT + K")  -- was: Tmux keybindings
 hl.unbind("SUPER + CTRL + K") -- was: Herdr keybindings
 o.bind("SUPER + ALT + K", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
+
+-- ---------------------------------------------------------------------------
+-- Mac-style close: SUPER+W closes the tab, SUPER+Q closes the window
+-- ---------------------------------------------------------------------------
+-- SUPER is the physical Cmd key, so Mac muscle memory sends SUPER+W expecting
+-- "close tab" -- stock Omarchy closes the whole window there (killing Zen and
+-- every tab in it). SUPER+W now forwards CTRL+W, which browsers, editors and
+-- most tabbed apps read as close tab/document -- the same "SUPER as the
+-- app-layer Cmd" trick stock uses for SUPER+C/V/X. Close-window moves to
+-- SUPER+Q, the Mac's Cmd+Q.
+--
+-- In a terminal CTRL+W is readline's delete-word, not close -- use SUPER+Q
+-- (or the app's own chord) there.
+--
+-- Same down/up split as Omarchy's send_shortcut_once in
+-- default/hypr/bindings/clipboard.lua (it's local there, so not reusable):
+-- plain send_shortcut can leave the synthetic key stuck/repeating.
+local function send_shortcut_once(mods, key)
+  return function()
+    hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "down" }))
+
+    hl.timer(function()
+      hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "up" }))
+    end, { timeout = 50, type = "oneshot" })
+  end
+end
+
+hl.unbind("SUPER + W") -- was: Close window
+o.bind("SUPER + W", "Close tab", send_shortcut_once("CTRL", "W"))
+o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
