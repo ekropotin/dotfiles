@@ -21,6 +21,7 @@ if [[ "$OS" == "Darwin" ]]; then
     xargs brew install < essentials.txt
 
     echo "Installing brew packages"
+    brew trust koekeishiya/formulae
     brew bundle
 fi
 

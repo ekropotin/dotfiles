@@ -1,4 +1,4 @@
-tap "homebrew/bundle"
+tap "koekeishiya/formulae"
 
 # Essential thingies
 brew "pngpaste"
@@ -7,8 +7,8 @@ brew "pngpaste"
 brew "powerlevel10k"
 
 # Window management
-brew "yabai"
-brew "skhd"
+brew "koekeishiya/formulae/yabai"
+brew "koekeishiya/formulae/skhd"
 
 # Docker stuff
 brew "colima"
@@ -19,7 +19,6 @@ brew "kube-ps1"
 
 #Cask apps
 cask "insomnia"
-cask "alfred"
 cask "kitty"
 
 # Fonts

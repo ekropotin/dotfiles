@@ -163,7 +163,7 @@ complete -F __start_kubectl k
 #GIT
 alias gci='git commit -a -m'
 alias gbc='git fetch && git checkout origin/$(git_main_branch) -b'
-alias gbp='git push origin $(current_branch)'
+alias gbp='git push origin $(git_current_branch)'
 
 #JJ
 alias jji='jj git init --colocate'
@@ -253,4 +253,4 @@ export PATH="$HOME/.local/bin:$PATH"
 
 . "$HOME/.cargo/env"
 
-alias cld='claude --allow-dangerously-skip-permissions'
+alias cld='claude --allow-dangerously-skip-permissions --permission-mode auto'

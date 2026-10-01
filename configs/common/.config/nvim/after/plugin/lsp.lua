@@ -17,13 +17,14 @@ require("mason-lspconfig").setup({
         "ruff",
         "pyrefly",
         "taplo",
-        "emmet_ls",
-        "svelte",
-        "tailwindcss",
-        "ts_ls",
         "terraformls",
         "bashls",
         "yamlls",
+        -- Frontend stuff - uncommit below if needed
+        -- "emmet_ls",
+        -- "svelte",
+        -- "tailwindcss",
+        -- "ts_ls",
     },
     automatic_enable = {
         exclude = {
