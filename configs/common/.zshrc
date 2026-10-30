@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$PATH:$HOME/bin
 
@@ -15,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""   # prompt comes from starship (see the end of this file)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,8 +96,20 @@ plugins=(
     eza
 )
 
+# eza blocks reading stdin when run without a path and stdin isn't a tty, which hangs
+# `ls` in agent/CI shells (e.g. Claude Code). Only load the eza aliases in a real terminal.
+[[ -t 0 && -t 1 ]] || plugins=(${plugins:#eza})
+
 # Must be set before oh-my-zsh.sh: the eza plugin reads these at load time.
 zstyle ':omz:plugins:eza' 'icons' yes
+
+# LEAN_SHELL=1 (set by the herdr prefix+f popup): short plugin list so a throwaway
+# shell starts in ~0.2s instead of ~0.8s.
+if [[ -n $LEAN_SHELL ]]; then
+  plugins=(git fzf zoxide mise)
+  # own dump: a different plugin list would otherwise invalidate the shared one
+  ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-lean-$ZSH_VERSION"
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -152,9 +157,9 @@ function mcd() {
 
 #K8s stuff
 # Note: the oh-my-zsh "kubectx" plugin is not a substitute for these. It only
-# defines kubectx_prompt_info for hand-built PROMPTs (inert under p10k) and
-# never calls the kubectx/kubens binaries. Prod-context coloring lives in
-# POWERLEVEL9K_KUBECONTEXT_CLASSES in .p10k.zsh instead.
+# defines kubectx_prompt_info for hand-built PROMPTs (inert under starship) and
+# never calls the kubectx/kubens binaries. The prompt shows the context via the
+# [kubernetes] module in ~/.config/starship/starship.toml.
 alias kctx="kubectx"
 alias kns="kubens"
 alias ar="kubectl argo rollouts"
@@ -169,6 +174,10 @@ alias gbp='git push origin $(git_current_branch)'
 alias jji='jj git init --colocate'
 alias jjf='jj git fetch'
 alias jjp='jj git push'
+
+#HERDR
+# move the current pane into its own new tab
+alias pane2tab='herdr pane move "$(herdr pane current | jq -r ".result.pane.pane_id")" --new-tab --focus'
 
 # -- supercharge fzf --
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
@@ -228,8 +237,27 @@ elif [ -f "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; th
   source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Prompt: starship. Its config lives in a directory (not the default single
+# ~/.config/starship.toml) so setup_dotfiles.sh can symlink it like the other .config dirs.
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)"
+
+# space between the right prompt and the window edge
+ZLE_RPROMPT_INDENT=1
+
+# Transient prompt (what p10k called transient_prompt): starship has none for zsh, so
+# collapse the finished prompt to a bare "❯" when Enter is pressed. Previous commands in
+# the scrollback then show a short prompt instead of the full powerline one.
+_transient_accept_line() {
+  local _p=$PROMPT _r=$RPROMPT
+  PROMPT='%F{green}❯%f '
+  RPROMPT=''
+  zle .reset-prompt
+  PROMPT=$_p
+  RPROMPT=$_r
+  zle .accept-line
+}
+zle -N accept-line _transient_accept_line
 
 # Recover the keyboard after a TUI dies without cleaning up. kitty speaks the
 # kitty keyboard protocol, which nvim and herdr enable on start and disable on

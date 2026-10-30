@@ -75,3 +75,25 @@ key = "prefix+shift+a"
 type = "plugin_action"
 command = "ekropotin.herdr-tuicr.review-submit"
 description = "tuicr review (auto-submit)"
+
+[[keys.command]]
+key = "prefix+p"
+type = "plugin_action"
+command = "ekropotin.projects.new"
+description = "new project"
+
+[[keys.command]]
+key = "prefix+m"
+type = "popup"
+command = "glow"
+width = "85%"
+height = "85%"
+description = "glow markdown browser"
+
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "env LEAN_SHELL=1 zsh"
+width = "85%"
+height = "85%"
+description = "shell popup"

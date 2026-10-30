@@ -23,3 +23,5 @@ kubectl
 kubectx
 k9s
 herdr
+starship
+glow

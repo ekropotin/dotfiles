@@ -74,14 +74,6 @@ else
     echo "oh-my-zsh already installed"
 fi
 
-echo "installing powerlevel10k"
-if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-    echo "powerlevel10k installed"
-else
-    echo "powerlevel10k already installed"
-fi
-
 echo "installing herdr plugins"
 if ! command -v herdr &> /dev/null; then
     echo "herdr not installed, skipping herdr plugins"
@@ -106,6 +98,21 @@ else
             herdr plugin install "$repo" -y || echo "failed to install $repo"
         fi
     done < "$SCRIPT_DIR/packages/herdr-plugins.txt"
+
+    # Local plugins are tracked in the repo, but herdr only knows a plugin once it's
+    # linked, and its registry (plugins.json) is gitignored.
+    for manifest in "$SCRIPT_DIR"/configs/common/.config/herdr/local-plugins/*/herdr-plugin.toml; do
+        [[ -f "$manifest" ]] || continue
+        plugin_dir="$(dirname "$manifest")"
+        plugin_id="$(sed -nE 's/^id[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' "$manifest" | head -1)"
+
+        if grep -qF -- "- $plugin_id (" <<< "$installed_plugins"; then
+            echo "$plugin_id already linked"
+            continue
+        fi
+
+        herdr plugin link "$plugin_dir" || echo "failed to link $plugin_dir"
+    done
 fi
 
 echo "rebuilding bat cache"

@@ -9,7 +9,7 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 ## Setup Commands
 
 ```bash
-./install_packages.sh    # Install software (Homebrew on mac, pacman/yay on Arch), oh-my-zsh, powerlevel10k, herdr plugins
+./install_packages.sh    # Install software (Homebrew on mac, pacman/yay on Arch), oh-my-zsh, herdr plugins
 ./setup_dotfiles.sh      # Symlink config files from configs/ to $HOME
 ./editors/bootstrap-editors.sh  # Symlink VSCode/Cursor settings and install extensions
 ```
@@ -17,10 +17,10 @@ Personal dotfiles for macOS and Linux (Arch). Manages shell, editor, terminal, a
 ## Repository Structure
 
 - `configs/` - Dotfiles organized by platform:
-  - `common/` - Cross-platform configs (zsh, p10k, neovim, kitty, bat, jj, herdr, ideavimrc)
+  - `common/` - Cross-platform configs (zsh, starship, neovim, kitty, bat, jj, herdr, ideavimrc)
   - `mac/` - macOS-specific configs (yabai, skhd)
   - `linux/` - Linux-specific configs. The desktop itself is Omarchy/Hyprland, managed outside this repo, except `hypr/bindings.lua` (see below)
-- `packages/` - Package lists: `essentials.txt` (cross-platform), `Brewfile` (macOS), `pkglist.txt` + `aurlist.txt` (Arch), `herdr-plugins.txt` (herdr plugins)
+- `packages/` - Package lists: `essentials.txt` (cross-platform), `Brewfile` (macOS), `pkglist.txt` + `aurlist.txt` (Arch), `herdr-plugins.txt` (herdr plugins from GitHub). Self-written herdr plugins live in `configs/common/.config/herdr/local-plugins/<name>/` and `install_packages.sh` registers each with `herdr plugin link` (herdr's registry, `plugins.json`, is gitignored)
 - `editors/` - VSCode/Cursor shared settings, keybindings, and extensions list
 - `tools/` - Custom shell scripts symlinked to `/usr/local/bin`:
   - `cht` - Query cht.sh cheat sheets via fzf

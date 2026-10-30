@@ -6,4 +6,6 @@
 /release-notes.json
 *.log
 *.sock
+*.sock.agent
+/session-snapshots
 *.bak

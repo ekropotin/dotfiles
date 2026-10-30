@@ -3,9 +3,6 @@ tap "koekeishiya/formulae"
 # Essential thingies
 brew "pngpaste"
 
-# Shell customizations
-brew "powerlevel10k"
-
 # Window management
 brew "koekeishiya/formulae/yabai"
 brew "koekeishiya/formulae/skhd"

@@ -1,0 +1,17 @@
+id = "ekropotin.zoxide-worktrees"
+name = "Zoxide Worktrees"
+version = "0.1.0"
+min_herdr_version = "0.8.0"
+platforms = ["macos", "linux"]
+
+[[events]]
+on = "worktree.created"
+command = ["bash", "hook.sh", "add"]
+
+[[events]]
+on = "worktree.opened"
+command = ["bash", "hook.sh", "add"]
+
+[[events]]
+on = "worktree.removed"
+command = ["bash", "hook.sh", "remove"]
