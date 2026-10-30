@@ -184,7 +184,8 @@ they pass through.
 |---|---|---|---|
 | Clipboard history | SUPER+CTRL+V | ⌃⌥⌘V | Alfred |
 | Quick actions menu | SUPER+SPACE | ⌘Space (literal, like ⌘Tab) | Alfred |
-| Push-to-talk | SUPER+\` | ⌃⌥\` | Wispr Flow |
+| Push-to-talk (hold) | SHIFT+F18 | ⇧F18 | Voxtype / Wispr Flow |
+| Hands-free (toggle) | SHIFT+F19 | ⇧F19 | Voxtype / Wispr Flow |
 | Window/app switcher | SUPER+Tab / +Shift → OmaSwitch | ⌘Tab (native) | macOS |
 | Close tab | SUPER+W → CTRL+W | ⌘W (native) | the app |
 | Close window | SUPER+Q | ⌘Q (native) ‡ | macOS / Hyprland |
@@ -197,7 +198,7 @@ Alfred's two chords are verified against
 history on ⌃⌥⌘V, main hotkey on ⌘Space. That bundle lives in OneDrive, not
 this repo, so it syncs between machines but isn't version-controlled here.
 Wispr Flow's chord is **unverified**: its config is `flow.sqlite`, which has
-no settings table, so ⌃⌥\` above is the intent rather than a reading.
+no settings table, so ⇧F18/⇧F19 above are the intent rather than a reading. Both come from a Voyager layer (Oryx Shift+F18 / Shift+F19).
 
 ### Not available on the Mac
 

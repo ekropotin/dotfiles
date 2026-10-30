@@ -28,21 +28,17 @@
 -- to dwindle/monocle until toggled back.
 hl.unbind("SUPER + T")
 
--- Voxtype push-to-talk on SUPER+` instead of the default F9. SUPER is
--- compositor-reserved, so unlike a bare F-key it cannot collide with whatever
--- app has focus.
+-- Voxtype dictation on SHIFT+F18/F19, sent from a Voyager layer, instead of the
+-- default F9. F13-F24 exist on no physical laptop keyboard and no app binds them,
+-- so they cannot collide with whatever app has focus. Same keys as Wispr Flow
+-- on the Mac: SHIFT+F18 push-to-talk (hold), SHIFT+F19 hands-free (toggle).
 --
--- Do NOT add ignore_mods here. It skips the modifier-mask check, so the release
--- bind then matches GRAVE under any modifiers -- swallowing bare backtick and
--- SHIFT+GRAVE (tilde) system-wide. ignore_mods is only safe on a key that is
--- not a printable character.
---
--- The tradeoff: releasing SUPER before the backtick may leave the recorder
--- running, since the release bind no longer matches. Recover with SUPER+CTRL+X
--- (toggle dictation) or `voxtype record stop`.
+-- F18 is not a printable key, so the release bind can't swallow typing. Releasing SHIFT before F18 may leave the recorder running; if the
+-- recorder ever gets stuck, run `voxtype record stop`.
 hl.unbind("F9")
-o.bind("SUPER + GRAVE", "Start dictation (push-to-talk)", "voxtype record start")
-o.bind("SUPER + GRAVE", "Stop dictation (push-to-talk)", "voxtype record stop", { release = true })
+o.bind("SHIFT + F18", "Start dictation (push-to-talk)", "voxtype record start")
+o.bind("SHIFT + F18", "Stop dictation (push-to-talk)", "voxtype record stop", { release = true })
+o.bind("SHIFT + F19", "Toggle dictation (hands-free)", "voxtype record toggle")
 
 -- Logitech MX Keys examples:
 -- o.bind("SUPER + SHIFT + S", nil, "omarchy-capture-screenshot")
